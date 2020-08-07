@@ -17,7 +17,7 @@ class FirestoreUseCase {
         repo.obtenerUserData(idUser)
     }
 
-    fun agregarNuevoVehiculo(idUsuario:String, patente:String, marca:String, modelo:String, km:Long, trasmi:String, image:Uri){
+    fun agregarNuevoVehiculo(idUsuario:String, patente:String, marca:String, modelo:String, km:Long, trasmi:String, image:String){
         repo.agregarNuevoVehiculo(idUsuario,patente,marca,modelo,km,trasmi,image)
     }
 

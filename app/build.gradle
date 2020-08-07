@@ -65,6 +65,7 @@ dependencies {
 
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     implementation 'com.google.firebase:firebase-firestore-ktx:21.5.0'
+    implementation 'com.google.firebase:firebase-storage-ktx:19.1.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
 
@@ -88,7 +89,8 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     /*Storage*/
-    implementation 'com.google.firebase:firebase-storage:9.6.1'
+    /*implementation 'com.google.firebase:firebase-storage:9.6.1'*/
+    implementation 'com.google.firebase:firebase-storage:19.1.1'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

@@ -1,26 +1,32 @@
 package com.example.cuidatucarro.ui.autos
 
+import android.app.AlertDialog
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.annotation.Nullable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.cuidatucarro.R
-import com.example.cuidatucarro.objetos.Autos
 import com.example.cuidatucarro.recyclers.MainAdapter
 import com.example.cuidatucarro.viewmodel.AutoViewModel
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_auto.*
+import kotlinx.android.synthetic.main.tarjeta_veh.*
+import kotlinx.android.synthetic.main.tarjeta_veh.view.*
+import kotlinx.android.synthetic.main.tarjeta_veh.view.txtPatente
 
 
-class AutosFragment : Fragment() {
+class AutosFragment : Fragment(),MainAdapter.OnAutoClickListener {
 
     private lateinit var dashboardViewModel: DashboardViewModel
     private lateinit var bottomAppBar: BottomAppBar
@@ -42,7 +48,7 @@ class AutosFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = MainAdapter(view.context)
+        adapter = MainAdapter(view.context, this )
         recyclerAutos.layoutManager = LinearLayoutManager(this.activity)
         recyclerAutos.adapter = adapter
 
@@ -61,6 +67,7 @@ class AutosFragment : Fragment() {
     }
 
         btnadd.setOnClickListener{
+            coordinatorLayout.visibility = View.VISIBLE
             findNavController().navigate(R.id.fragemtagregarauto)
         }
     }
@@ -85,8 +92,59 @@ class AutosFragment : Fragment() {
             shimmer_view_container.visibility = View.GONE
             adapter.setListData(it)
             adapter.notifyDataSetChanged()
+            coordinatorLayout.visibility = View.VISIBLE
         })
 
     }
 
+    override fun onImageClick(autImage: String) {
+
+    }
+
+    override fun onItemClik(
+        autPatenteC: String,
+        autImage: String,
+        autMarcaC: String,
+        autModeloC: String
+    ) {
+/*        val intent = Intent(context,tarjetaVeh::class.java)
+
+        intent.putExtra("patente",autPatenteC)
+
+        startActivity(intent)*/
+
+        showAlertDialogSuccess(autPatenteC,autImage,autMarcaC,autModeloC)
+
+        Toast.makeText(context, "El auto con patenta $autPatenteC", Toast.LENGTH_SHORT).show()
+    }
+
+
+    private fun showAlertDialogSuccess(patente:String, imageVeh:String,marca:String, modelo:String) {
+
+
+        var dialogBuilder = AlertDialog.Builder(activity)
+        val layoutView = layoutInflater.inflate(R.layout.tarjeta_veh, null)
+
+        layoutView.txtPatente.text = patente
+        layoutView.txtMarcaModelo.text = "$marca $modelo"
+        Glide.with(layoutView).load(imageVeh).into(layoutView.imaVeh)
+
+
+        val dialogButton =
+            layoutView.findViewById<Button>(R.id.btnDetele)
+        dialogBuilder.setView(layoutView)
+        /*dialogBuilder.setCancelable(false)*/
+        var alertDialog = dialogBuilder.create()
+
+        alertDialog.show()
+
+        dialogButton.setOnClickListener {
+            /*alertDialog.dismiss()*/
+        }
+    }
+
+
+
 }
+
+

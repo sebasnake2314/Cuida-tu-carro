@@ -138,11 +138,11 @@ class PerfilFragment : Fragment() {
                 is Resource.Success->{
                     val NombreUsu = result.data
                     txtNombreUsuario.text = NombreUsu
-                    progressBar.visibility = View.GONE
+                    progressBar.visibility = View.INVISIBLE
                 }
 
                 is Resource.Failure->{
-                    progressBar.visibility = View.GONE
+                    progressBar.visibility = View.INVISIBLE
               /*  Toast.makeText(this,"Ocurrio un problema ${result.exception.message}",Toast.LENGTH_SHORT).show()*/
                 }
 

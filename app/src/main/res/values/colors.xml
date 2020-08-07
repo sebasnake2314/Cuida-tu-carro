@@ -7,4 +7,5 @@
     <color name="colorError">#dc3545</color>
     <color name="colorgray">#f8f9fa</color>
     <color name="placeholder_bg">#dddddd</color>
+    <color name="color_tarjtea_bg">#E8EAF6</color>
 </resources>

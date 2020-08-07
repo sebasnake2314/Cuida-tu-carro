@@ -4,47 +4,115 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:padding="5dp"
+    android:id="@+id/tarjetaVeh">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/circleImagenView"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        app:civ_border_width="2dp"
-        android:background="@color/fui_transparent"/>
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:padding="5dp"
+        android:background="@color/color_tarjtea_bg"
+        android:elevation="30dp">
 
-        <TextView
-            android:id="@+id/txtMarca"
-            android:layout_width="wrap_content"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circleImagenView"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:civ_border_width="2dp"
+            android:background="@color/fui_transparent"
+            app:civ_border_color="@color/colorPrimary"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="8dp"
-            android:text="Marca"/>
+            android:orientation="horizontal"
+            android:layout_marginLeft="70dp">
 
-        <TextView
-            android:id="@+id/txtModelo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="Modelo"
-            android:layout_marginLeft="8dp" />
 
-        <TextView
-            android:id="@+id/txtKilometraje"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="Kilometraje"
-            android:layout_marginLeft="8dp" />
+            <LinearLayout
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    </LinearLayout>
+                /*--Marca--*/
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/textViemMarca"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="8dp"
+                        android:text="Marca:"/>
+                    <TextView
+                        android:id="@+id/txtMarca"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:textSize="15sp"
+                        android:layout_marginLeft="8dp"
+                        android:hint="Marca"/>
+                </LinearLayout>
+                /*--Modelo--*/
+                <LinearLayout
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textViewModelo"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:textStyle="bold"
+                        android:text="Modelo:"
+                        android:layout_marginLeft="8dp" />
+
+                    <TextView
+                        android:id="@+id/txtModelo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:hint="Modelo"
+                        android:layout_marginLeft="8dp" />
+
+                </LinearLayout>
+                /*--Kilometraje--*/
+                <LinearLayout
+                    android:layout_width="220dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textViewKilometraje"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:textStyle="bold"
+                        android:text="Kilometraje:"
+                        android:layout_marginLeft="8dp" />
+
+                    <TextView
+                        android:id="@+id/txtKilometraje"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:hint="Kilometraje"
+                        android:layout_marginLeft="8dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
 
 
 </LinearLayout>

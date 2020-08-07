@@ -10,9 +10,25 @@ import com.example.cuidatucarro.R
 import com.example.cuidatucarro.objetos.Autos
 import kotlinx.android.synthetic.main.item_row_autos.view.*
 
-class MainAdapter(private val context: Context):RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
+class MainAdapter(private val context: Context,
+                  private val itemClickListener:OnAutoClickListener
+):RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
+
+
 
     private var dataList = mutableListOf<Autos>()
+
+
+    interface OnAutoClickListener{
+        fun onImageClick(autImage: String)
+        fun onItemClik(
+            autPatenteC: String,
+            autImage: String,
+            autMarcaC: String,
+            autModeloC: String
+        )
+    }
+
 
     fun setListData(data:MutableList<Autos>){
         dataList = data
@@ -20,9 +36,10 @@ class MainAdapter(private val context: Context):RecyclerView.Adapter<MainAdapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
        val view = LayoutInflater.from(context).inflate(R.layout.item_row_autos,parent,false)
+
         return MainViewHolder(view)
     }
-
+    
     override fun getItemCount(): Int {
         return if (dataList.size > 0){
             dataList.size
@@ -36,9 +53,17 @@ class MainAdapter(private val context: Context):RecyclerView.Adapter<MainAdapter
         holder.bindView(user)
     }
 
+
     inner class MainViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
 
         fun bindView(user:Autos){
+
+
+            itemView.setOnClickListener{ itemClickListener.onItemClik(user.aut_patente_c,user.aut_image, user.aut_marca_c, user.aut_modelo_c)}
+
+            itemView.circleImagenView.setOnClickListener{itemClickListener.onImageClick(user.aut_image)}
+
+
             Glide.with(context).load(user.aut_image).into(itemView.circleImagenView)
             itemView.txtMarca.text = user.aut_marca_c
             itemView.txtModelo.text = user.aut_modelo_c

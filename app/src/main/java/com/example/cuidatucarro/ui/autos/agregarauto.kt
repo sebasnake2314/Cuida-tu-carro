@@ -3,14 +3,13 @@ package com.example.cuidatucarro.ui.autos
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.ContentResolver
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.storage.StorageManager
 import android.provider.MediaStore
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -22,15 +21,25 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.net.toUri
+import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.cuidatucarro.R
+import com.example.cuidatucarro.data.network.RepoImplement
+import com.example.cuidatucarro.domain.UseCaseImpl
 import com.example.cuidatucarro.viewmodel.AutoViewModel
+import com.example.cuidatucarro.viewmodel.MainViewModel
+import com.example.cuidatucarro.viewmodel.VMFactory
+import com.example.cuidatucarro.vo.Resource
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.fragment_agregarauto.*
+import kotlinx.android.synthetic.main.fragment_auto.*
+import java.util.*
+import android.media.MediaPlayer.create as mediaPlayerCreate
 
 
 class agregarauto : Fragment() {
@@ -39,8 +48,8 @@ class agregarauto : Fragment() {
     private val viewModel by lazy {ViewModelProvider(this).get(AutoViewModel::class.java) }
     private val transmision = arrayOf("Automático", "Sincrónica")
     private val selectpickture = arrayOf("Galería", "Cámara")
-    private lateinit var mStorage:StorageReference
 
+    private val viewModelauto by lazy {ViewModelProvider(this, VMFactory(UseCaseImpl(RepoImplement()))).get(MainViewModel::class.java)}
 
     private lateinit var txtPatente: EditText
     private lateinit var txtMarca: EditText
@@ -52,9 +61,11 @@ class agregarauto : Fragment() {
     private val REQUEST_CAMERA = 1002
 
     var fotoCamarara: Uri? = null
+    var mediaPlayer: MediaPlayer? = null
+    var selectedPhotoUri: Uri? = null
+    var urlimage:String = ""
 
-
-    override fun onCreateView(
+        override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
@@ -68,29 +79,47 @@ class agregarauto : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btnAddVeh.setOnClickListener{
+        btnAddVeh.setOnClickListener {
+
             txtPatente = view.findViewById(R.id.txtPatente)
             txtPatente = view.findViewById(R.id.txtPatente)
             txtMarca = view.findViewById(R.id.txtMarca)
             txtModelo = view.findViewById(R.id.txtModelo)
-            txtKm  = view.findViewById(R.id.txtKilo)
-/*            txtTrasmision = txtTrasmision*/
+            txtKm = view.findViewById(R.id.txtKilo)
 
-            val patente = txtPatente.text.toString()
-            val marca = txtMarca.text.toString()
-            val model = txtModelo.text.toString()
-            val km = txtKm.text.toString()
-            val transmision = txtTransmision.text.toString()
-            val image = foto
-
-
-            if (!TextUtils.isEmpty(patente) && !TextUtils.isEmpty(marca) && !TextUtils.isEmpty(model) && !TextUtils.isEmpty(km) && !TextUtils.isEmpty(transmision) && image != null){
-                viewModel.agregarNuevoVehocilo(Auth?.uid.toString(),patente,marca,model,km.toString().toLong(),transmision, image)
-                showAlertDialogSuccess()
-                findNavController().navigate(R.id.navigation_home)
+            if (!TextUtils.isEmpty(txtPatente.text) && !TextUtils.isEmpty(txtMarca.text) && !TextUtils.isEmpty(txtModelo.text) && !TextUtils.isEmpty(txtKm.text) && !TextUtils.isEmpty(txtTransmision.text.toString()) && foto != null) {
+                btnAddVeh.isClickable = false
+                progressBarAddAuto.visibility = view.visibility
+                btnAddVeh.text = "Cargando..."
+                uploadImage(foto)
             }else{
-                Toast.makeText(activity,"Completa todos los campos solicitados", Toast.LENGTH_SHORT ).show()
-            }
+
+                if(TextUtils.isEmpty(txtPatente.text)){
+                    txtPatente.setError("La Patente es un campo Obligatiorio para completar")
+                }
+
+                if(TextUtils.isEmpty(txtMarca.text)){
+                    txtMarca.setError("La Marca es un campo Obligatiorio para completar")
+                }
+
+                if(TextUtils.isEmpty(txtModelo.text)){
+                    txtModelo.setError("El Modelo es un campo Obligatiorio para completar")
+                }
+
+                if(TextUtils.isEmpty(txtKm.text)){
+                    txtKm.setError("El Kilometraje es un campo Obligatiorio para completar")
+                }
+
+                if(TextUtils.isEmpty(txtTransmision.text.toString())){
+                   /* Toast.makeText(activity, "La txtTransmision es un campo Obligatiorio para completar", Toast.LENGTH_SHORT).show()*/
+                    txtTransmision.setError("La txtTransmision es un campo Obligatiorio para completar")
+                }
+
+
+               /* Toast.makeText(activity, "Completa todos los campos solicitados", Toast.LENGTH_SHORT).show()*/
+            progressBarAddAuto.visibility = View.INVISIBLE
+            btnAddVeh.isClickable = true
+        }
         }
         txtTransmision.setOnClickListener{
             popTransmision()
@@ -201,6 +230,8 @@ class agregarauto : Fragment() {
         dialogBuilder.setCancelable(false)
         var alertDialog = dialogBuilder.create()
         alertDialog.show()
+        mediaPlayer = mediaPlayerCreate(context, R.raw.alarma)
+        mediaPlayer?.start()
         dialogButton.setOnClickListener {
             alertDialog.dismiss()
         }
@@ -209,6 +240,7 @@ class agregarauto : Fragment() {
     fun popTransmision(){
         val dialogBuilder = AlertDialog.Builder(activity)
         dialogBuilder.setItems(transmision){dialog, which ->
+            txtTransmision.setError(null)
             txtTransmision.setText(transmision[which])
         }
         val alert = dialogBuilder.create()
@@ -233,9 +265,66 @@ class agregarauto : Fragment() {
         alert.show()
     }
 
+    //Retorna la Url de la Imagen selecionada al vehículo a agregar
+    fun obtenerUrlImagen(image:Uri?){
+    var url: String = ""
+    viewModelauto.image = image
+    viewModelauto.subirimagen.observe(viewLifecycleOwner,Observer { result ->
+        when(result){
+            is Resource.Loading->{
+                viewModelauto.image = image
+            }
+            is Resource.Success->{
+                 url = result.data
+              /*  agregarAuto(url)*/
+               /* Toast.makeText(activity,"Ocurrio un problema $url",Toast.LENGTH_SHORT).show()*/
+            }
+            is Resource.Failure->{
+                  Toast.makeText(activity,"Ocurrio un problema ${result.exception.message}",Toast.LENGTH_SHORT).show()
+            }
+        }
+    })
+
+    }
+
+    private fun agregarAuto(urlImage:String){
+        val patente = txtPatente.text.toString()
+        val marca = txtMarca.text.toString()
+        val model = txtModelo.text.toString()
+        val km = txtKm.text.toString()
+        val transmision = txtTransmision.text.toString()
+
+            viewModel.agregarNuevoVehocilo(
+                Auth?.uid.toString(),
+                patente,
+                marca,
+                model,
+                km.toLong(),
+                transmision,
+                urlImage
+            )
+            showAlertDialogSuccess()
 
 
+            findNavController().navigate(R.id.navigation_home)
+ /*           progressBarAddAuto.visibility = View.INVISIBLE
+            btnAddVeh.isClickable = true*/
+    }
 
+    private fun uploadImage(selectedPhotoUri:Uri?){
+        if (selectedPhotoUri == null) return
+    val filename = UUID.randomUUID().toString()
+    val  ref= FirebaseStorage.getInstance().getReference("/images/$filename")
+
+    ref.putFile(selectedPhotoUri!!)
+        .addOnSuccessListener {
+           /* Toast.makeText(activity,"foto", Toast.LENGTH_LONG).show()*/
+            ref.downloadUrl.addOnSuccessListener {
+                urlimage = it.toString()
+                agregarAuto(urlimage)
+            }
+        }
+    }
 }
 
 

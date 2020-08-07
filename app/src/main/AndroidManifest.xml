@@ -6,6 +6,9 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+
 
     <application
         android:allowBackup="true"
@@ -14,19 +17,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".alert.AlerEmailEnviado"></activity>
-        <activity android:name=".alert.VehiculoAgregado" />
-        <activity android:name=".ui.SplashScrennActivity" />
-        <activity android:name=".ui.OlvideContrasenaActivity" />
-        <activity android:name=".ui.LoginManualActivity" />
-        <activity android:name=".ui.RegistroManualActivity" />
+        <activity android:name=".alert.AlerEmailEnviado" android:screenOrientation="portrait"/>
+        <activity android:name=".alert.VehiculoAgregado" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.SplashScrennActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.OlvideContrasenaActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.LoginManualActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.RegistroManualActivity" android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.MenuPrincipal"
             android:label="@string/title_activity_menu_principal"
-            android:theme="@style/apptheme2" />
+            android:theme="@style/apptheme2"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.LoginActivity"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/SplashTheme"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />

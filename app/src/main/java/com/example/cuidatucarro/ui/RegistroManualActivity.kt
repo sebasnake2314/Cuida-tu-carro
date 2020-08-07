@@ -84,7 +84,7 @@ class RegistroManualActivity : AppCompatActivity() {
 
             }else{
 
-                AlertEmail()
+               /* AlertEmail()*/
 
                 if (nombre.isEmpty()){
                     txtNombre.setError("El nombre es un campo Obligatiorio para completar")
@@ -115,9 +115,7 @@ class RegistroManualActivity : AppCompatActivity() {
                     task ->
                     if (task.isComplete){
                        /* Toast.makeText(this, "Email de confirmación de Registro enviado", Toast.LENGTH_SHORT).show()*/
-
                         AlertEmail()
-
                         //startActivity(Intent(this, Login_manual::class.java))
                     }else{
                         Toast.makeText(this, "Ocurrió un problema al enviar email de confirmación de Registro", Toast.LENGTH_SHORT).show()

@@ -5,6 +5,7 @@ import com.example.cuidatucarro.objetos.Autos
 import com.example.cuidatucarro.vo.Resource
 
 interface Repo {
+
     fun getDatosUsuario():Resource<List<Usuario>>
 
     fun getlistaautos():Resource<List<Autos>>

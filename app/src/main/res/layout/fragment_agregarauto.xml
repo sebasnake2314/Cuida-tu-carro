@@ -18,6 +18,17 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:orientation="vertical">
+
+            <ProgressBar
+                android:id="@+id/progressBarAddAuto"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:visibility="invisible"
+                android:indeterminate="true"
+                android:indeterminateTint="@android:color/white"/>
+
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/animacion"
                 android:layout_width="match_parent"
@@ -38,12 +49,14 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_gravity="center_horizontal">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_marginTop="10dp"
@@ -54,7 +67,7 @@
                     app:civ_border_width="2dp"
                     app:civ_border_color="@color/colorPrimary"
                     android:src="@drawable/ic_photoauto"
-                    android:layout_gravity="center">
+                    android:layout_gravity="center_horizontal">
 
                 </de.hdodenhof.circleimageview.CircleImageView>
 
@@ -63,7 +76,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_marginTop="10dp"
-                    android:hint="Presione para agregar photo"
+                    android:hint="Presione para agregar foto"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="10dp" />
 
@@ -77,69 +90,29 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="20dp"
                     android:textStyle="bold" />
-
+/*---------------------------------------------------------------*/
                 <LinearLayout
                     android:layout_width="389dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:orientation="horizontal"
->
+                    android:layout_margin="10dp"
+                    android:orientation="vertical"
+                    android:gravity="center_horizontal">
 
+                    /*--Fila Patente--*/
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:orientation="horizontal"
+                        android:paddingLeft="20dp">
 
                         <TextView
                             android:id="@+id/textViewPatente"
-                            android:layout_width="match_parent"
-                            android:layout_height="20dp"
+                            android:layout_width="110dp"
+                            android:layout_height="25dp"
                             android:layout_marginTop="15dp"
                             android:text="Patente: "
                             android:textSize="18dp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/textViewMarca"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="23dp"
-                            android:text="Marca: "
-                            android:textSize="18dp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/textViewModelo"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="22dp"
-                            android:text="Modelo: "
-                            android:textSize="18dp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/textViewKilometraje"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="20dp"
-                            android:text="Kilometraje"
-                            android:textSize="18dp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/textViewTransmisión"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="22dp"
-                            android:text="Tipo Transmisión: "
-                            android:textSize="18dp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="247dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                            android:textStyle="bold"/>
 
                         <EditText
                             android:id="@+id/txtPatente"
@@ -147,43 +120,112 @@
                             android:layout_height="wrap_content"
                             android:paddingTop="10dp"
                             android:ems="10"
-                            android:inputType="textPersonName" />
+                            android:inputType="textCapCharacters"
+                            android:layout_gravity="center_vertical"/>
+                    </LinearLayout>
+
+                    /*--Fila Marca*/
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingLeft="20dp">
+                        <TextView
+                            android:id="@+id/textViewMarca"
+                            android:layout_width="110dp"
+                            android:layout_height="25dp"
+                            android:layout_marginTop="15dp"
+                            android:text="Marca: "
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
 
                         <EditText
                             android:id="@+id/txtMarca"
                             android:layout_width="230dp"
                             android:layout_height="wrap_content"
                             android:ems="10"
-                            android:inputType="textPersonName" />
+                            android:inputType="textPersonName"
+                            android:layout_gravity="center_vertical"/>
+
+                    </LinearLayout>
+
+                    /*-Fila Modelo-*/
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingLeft="20dp">
+                        <TextView
+                            android:id="@+id/textViewModelo"
+                            android:layout_width="110dp"
+                            android:layout_height="25dp"
+                            android:layout_marginTop="15dp"
+                            android:text="Modelo: "
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
 
                         <EditText
                             android:id="@+id/txtModelo"
                             android:layout_width="230dp"
                             android:layout_height="wrap_content"
                             android:ems="10"
-                            android:inputType="textPersonName" />
+                            android:inputType="textPersonName"
+                            android:layout_gravity="center_vertical"/>
 
+                    </LinearLayout>
+
+                    /*--Fila Kilometraje*/
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingLeft="20dp">
+                        <TextView
+                            android:id="@+id/textViewKilometraje"
+                            android:layout_width="110dp"
+                            android:layout_height="25dp"
+                            android:layout_marginTop="15dp"
+                            android:text="Kilometraje: "
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
 
                         <EditText
                             android:id="@+id/txtKilo"
                             android:layout_width="230dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
                             android:ems="10"
                             android:inputType="numberSigned"
-                            android:hint="0" />
+                            android:layout_gravity="center_vertical"/>
+
+                    </LinearLayout>
+
+                    /*--Fila Transmisión*/
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingLeft="20dp">
+                        <TextView
+                            android:id="@+id/textViewTransmisión"
+                            android:layout_width="110dp"
+                            android:layout_height="25dp"
+                            android:text="Transmisión: "
+                            android:textSize="18dp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/txtTransmision"
-                            android:layout_width="match_parent"
+                            android:layout_width="230dp"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
-                            android:paddingTop="21dp"
+                            android:paddingTop="19dp"
                             android:hint="Pulsa aqui para seleccionar"
-                            android:textSize="18dp" />
+                            android:textSize="16dp" />
 
                     </LinearLayout>
+
                 </LinearLayout>
+/*-------------------------------FIN--------------------------------*/
             </LinearLayout>
 
             <Button
@@ -198,6 +240,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"/>
         </LinearLayout>
+
     </ScrollView>
 
 </LinearLayout>

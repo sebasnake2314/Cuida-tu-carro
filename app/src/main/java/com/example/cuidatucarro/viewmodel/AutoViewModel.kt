@@ -13,11 +13,9 @@ class AutoViewModel:ViewModel() {
     val firestoreUseCase = FirestoreUseCase()
     private val repo = RepoAuto()
 
-    fun agregarNuevoVehocilo(idUsuario:String, patente:String, marca:String, modelo:String, km:Long, trasmi:String, image:Uri){
+    fun agregarNuevoVehocilo(idUsuario:String, patente:String, marca:String, modelo:String, km:Long, trasmi:String, image:String){
         firestoreUseCase.agregarNuevoVehiculo(idUsuario,patente,marca,modelo,km,trasmi,image)
-
     }
-
 
     fun traerDatosVehiculos(idUsuario: String):LiveData<MutableList<Autos>>{
         val mutableData = MutableLiveData<MutableList<Autos>>()
