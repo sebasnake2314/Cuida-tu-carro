@@ -2,6 +2,7 @@ package com.example.cuidatucarro.domain
 
 import android.net.Uri
 import com.example.cuidatucarro.data.repo.FirebaseRepo
+import com.example.cuidatucarro.objetos.Autos
 
 class FirestoreUseCase {
 
@@ -17,8 +18,17 @@ class FirestoreUseCase {
         repo.obtenerUserData(idUser)
     }
 
-    fun agregarNuevoVehiculo(idUsuario:String, patente:String, marca:String, modelo:String, km:Long, trasmi:String, image:String){
-        repo.agregarNuevoVehiculo(idUsuario,patente,marca,modelo,km,trasmi,image)
+    fun agregarNuevoVehiculo(idUsuario:String, patente:String, marca:String, modelo:String, km:Long, trasmi:String, image:String, uriPhoto:String){
+        repo.agregarNuevoVehiculo(idUsuario,patente,marca,modelo,km,trasmi,image,uriPhoto)
     }
+
+    fun actualizadarDatosVehiculo(idAuto:String, idUsuario:String,marca:String, modelo:String, km:Long, trasmi:String, image:String, uriPhoto:String){
+        repo.actualizarDatosVehiculo(idAuto,idUsuario,marca,modelo,km,trasmi,image,uriPhoto)
+    }
+
+    fun eliminarVehiculo(uriImgage:String,idvehiculo: String){
+        repo.eliminarVehiculo(uriImgage, idvehiculo)
+    }
+
 
 }

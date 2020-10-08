@@ -44,9 +44,12 @@ class MenuPrincipal : AppCompatActivity() {
     private  fun setBottomNavVisibility(){
     navController.addOnDestinationChangedListener { controller, destination, arguments ->
     when(destination.id){
-       R.id.fragemtagregarauto -> hideBottomNav()
+        R.id.fragemtagregarauto -> hideBottomNav()
+        R.id.Mantenimientos -> hideBottomNav()
         else-> showBottomNav()
     }
+
+
         }
     }
 

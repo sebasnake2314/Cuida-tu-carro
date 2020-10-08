@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_navigation_auto_to_fragemtagregarauto"
             app:destination="@id/fragemtagregarauto" />
+        <action
+            android:id="@+id/action_navigation_auto_to_mantenimiento"
+            app:destination="@id/Mantenimientos" />
     </fragment>
 
     <fragment
@@ -36,4 +39,9 @@
         android:name="com.example.cuidatucarro.ui.autos.agregarauto"
         android:label="@string/title_agregar_auto"
         tools:layout="@layout/fragment_agregarauto" />
+    <fragment
+        android:id="@+id/Mantenimientos"
+        android:name="com.example.cuidatucarro.ui.mantenimiento.mantenimiento"
+        android:label="Mantenimientos"
+        tools:layout="@layout/fragment_mantenimiento" />
 </navigation>

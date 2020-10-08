@@ -54,7 +54,7 @@
                 android:drawableLeft="@drawable/ic_mantenimiento_blanco"
                 android:drawablePadding="20dp"
                 android:padding="20dp"
-                android:text="Mantenimientos"
+                android:text="Ir a Mantenimientos"
                 android:textAlignment="textStart"
                 android:textColor="@android:color/white" />
 
