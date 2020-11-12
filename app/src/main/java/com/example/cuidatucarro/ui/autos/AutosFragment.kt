@@ -18,11 +18,13 @@ import com.bumptech.glide.Glide
 import com.example.cuidatucarro.R
 import com.example.cuidatucarro.objetos.Autos
 import com.example.cuidatucarro.recyclers.MainAdapter
+import com.example.cuidatucarro.ui.mantenimiento.mantenimiento
 import com.example.cuidatucarro.viewmodel.AutoViewModel
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_auto.*
+import kotlinx.android.synthetic.main.fragment_mantenimiento.view.*
 import kotlinx.android.synthetic.main.tarjeta_veh.view.*
 
 
@@ -171,7 +173,15 @@ class AutosFragment : Fragment(),MainAdapter.OnAutoClickListener {
         btnMantenimiento.setOnClickListener{
             alertDialog.dismiss()
 
-            findNavController().navigate(R.id.Mantenimientos)
+            //val intent = Intent(context, R.id.Mantenimientos::class.java)
+            //mante.putExtra("datosveh","${auto.aut_marca_c} ${auto.aut_modelo_c}")
+            //mante.putExtra("placa", auto.aut_patente_c)
+            //mante.putExtra("imageURL",auto.auto_uri_foto)
+            //startActivity(intent)
+
+            val bundle = Bundle()
+            bundle.putParcelable("auto", auto)
+           findNavController().navigate(R.id.Mantenimientos,bundle)
         }
 
         //Modificar datos de Vehículos

@@ -37,16 +37,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <ImageView
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/image_auto"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_alignParentRight="true"
+            android:background="@color/fui_transparent"
             android:src="@drawable/ic_perfil"
-            android:layout_width="62dp"
-            android:layout_height="62dp"/>
+            app:civ_border_color="@android:color/holo_blue_dark"
+            app:civ_border_width="2dp"/>
+
     </RelativeLayout>
 
     <GridLayout
         android:layout_width="match_parent"
-        android:layout_height="517dp"
+        android:layout_height="700dp"
         android:alignmentMode="alignMargins"
         android:columnCount="2"
         android:columnOrderPreserved="false"
@@ -72,14 +79,14 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/aceite" />
+                    android:src="@drawable/frenos" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:gravity="center_horizontal"
-                    android:text="Aceites y lubricantes"
+                    android:text="Frenos"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
@@ -145,14 +152,14 @@
                 <ImageView
                     android:layout_width="80dp"
                     android:layout_height="80dp"
-                    android:src="@drawable/volante" />
+                    android:src="@drawable/amortiguador" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:gravity="center_horizontal"
-                    android:text="Dirección"
+                    android:text="Amortiguación"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
@@ -188,7 +195,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:gravity="center_horizontal"
-                    android:text="Partes Electricas"
+                    android:text="Batería"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
@@ -225,7 +232,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:gravity="center_horizontal"
-                    android:text="Transmisión"
+                    android:text="Clutch"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
@@ -261,7 +268,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:gravity="center_horizontal"
-                    android:text="Neumáticos"
+                    android:text="Cauchos o Neumáticos"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
@@ -269,6 +276,10 @@
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
+
+
+
+
 
 
     </GridLayout>
