@@ -8,31 +8,49 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlin.contracts.Returns
 import kotlin.text.toLong as toLong
 import com.example.cuidatucarro.vo.Resource
+import com.google.firebase.storage.FirebaseStorage
+
 class RepoAuto {
+
+    //val db = FirebaseFirestore.getInstance()
 
     fun getDataAutos(idUsuario:String):LiveData<MutableList<Autos>>{
         val mutableData = MutableLiveData<MutableList<Autos>>()
         FirebaseFirestore.getInstance().collection("tb_vehiculo_usuario")
             .whereEqualTo("usu_id_usuario_i",idUsuario)
             .get().addOnSuccessListener {result->
-
             val listData = mutableListOf<Autos>()
-
             for(document in result ){
-
+                val idVeh = document.id.toString()
                 val imageUrl = document.getString("aut_image")
                 val patente = document.getString("aut_patente_c")
                 val marca = document.getString("aut_marca_c")
                 val modelo = document.getString("aut_modelo_c")
                 val km = document.getLong("aut_kilometraje_i")?.toInt()
                 val trasminision = document.getString("aut_tipo_trasmision_c")
-
-                val autos = Autos(imageUrl!!, patente!!,marca!!,modelo!!,km!!.toLong(),trasminision!!)
+                var uri_auto = document.getString("auto_uri_foto")
+                if (uri_auto == null){
+                    uri_auto = ""
+                }
+                val autos = Autos(idVeh!!,imageUrl!!, patente!!,marca!!,modelo!!,km!!.toLong(),trasminision!!,uri_auto!!)
                 listData.add(autos)
             }
             mutableData.value = listData
         }
         return mutableData
     }
+
+    fun eliminarVehiculo(uriImgage:String,idvehiculo: String){
+
+        //1- se elimina el archivo de imagen del vehículo
+        val  ref= FirebaseStorage.getInstance().getReference("/images/$uriImgage" )
+
+        ref.delete().addOnSuccessListener{}
+            //Al eliminar archivo de imagen del storage se procede a eliminar los datos
+            //db.collection("tb_vehiculo_usuario").document(idvehiculo).delete()
+
+         FirebaseFirestore.getInstance().collection("tb_vehiculo_usuario").document(idvehiculo).delete()
+    }
+
 
 }

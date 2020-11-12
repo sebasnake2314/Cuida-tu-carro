@@ -14,21 +14,12 @@ class MainAdapter(private val context: Context,
                   private val itemClickListener:OnAutoClickListener
 ):RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
 
-
-
     private var dataList = mutableListOf<Autos>()
-
 
     interface OnAutoClickListener{
         fun onImageClick(autImage: String)
-        fun onItemClik(
-            autPatenteC: String,
-            autImage: String,
-            autMarcaC: String,
-            autModeloC: String
-        )
+        fun onItemClik(auto:Autos, position: Int)
     }
-
 
     fun setListData(data:MutableList<Autos>){
         dataList = data
@@ -50,21 +41,15 @@ class MainAdapter(private val context: Context,
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
         val user = dataList[position]
-        holder.bindView(user)
+        holder.bindView(user, position)
     }
 
-
     inner class MainViewHolder(itemView:View):RecyclerView.ViewHolder(itemView){
-
-        fun bindView(user:Autos){
-
-
-            itemView.setOnClickListener{ itemClickListener.onItemClik(user.aut_patente_c,user.aut_image, user.aut_marca_c, user.aut_modelo_c)}
-
+        fun bindView(user:Autos, position: Int){
+            itemView.setOnClickListener{ itemClickListener.onItemClik(user,position)}
             itemView.circleImagenView.setOnClickListener{itemClickListener.onImageClick(user.aut_image)}
-
-
-            Glide.with(context).load(user.aut_image).into(itemView.circleImagenView)
+            //Glide.with(context).load(user.aut_image).into(itemView.circleImagenView)
+            Glide.with(context).load(user.aut_image).centerCrop().into(itemView.circleImagenView)
             itemView.txtMarca.text = user.aut_marca_c
             itemView.txtModelo.text = user.aut_modelo_c
             itemView.txtKilometraje.text = user.aut_kilometraje_i.toString()
