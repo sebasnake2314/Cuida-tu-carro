@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.cuidatucarro.R
 import com.example.cuidatucarro.objetos.Autos
@@ -33,10 +34,17 @@ class mantenimiento : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         placaVehiculo.text = auto.aut_patente_c
         datosVehiculo.text = "${auto.aut_marca_c} ${auto.aut_modelo_c}"
         Glide.with(this).load(auto.aut_image).into(image_auto)
+
+
+        btnmotor.setOnClickListener {
+            findNavController().navigate(R.id.agregarMantenimientoMotor)
+        }
+
     }
+
+
 
 }

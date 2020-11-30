@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cuidatucarro.R
 import com.example.cuidatucarro.objetos.Autos
+import com.example.cuidatucarro.objetos.tipoMatenimientoMotor
 import kotlinx.android.synthetic.main.item_row_autos.view.*
 
 class MainAdapter(private val context: Context,
@@ -21,7 +22,7 @@ class MainAdapter(private val context: Context,
         fun onItemClik(auto:Autos, position: Int)
     }
 
-    fun setListData(data:MutableList<Autos>){
+    fun setListData(data: MutableList<Autos>){
         dataList = data
     }
 

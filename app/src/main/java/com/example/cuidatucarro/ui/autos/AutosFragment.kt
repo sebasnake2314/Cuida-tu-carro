@@ -18,13 +18,11 @@ import com.bumptech.glide.Glide
 import com.example.cuidatucarro.R
 import com.example.cuidatucarro.objetos.Autos
 import com.example.cuidatucarro.recyclers.MainAdapter
-import com.example.cuidatucarro.ui.mantenimiento.mantenimiento
 import com.example.cuidatucarro.viewmodel.AutoViewModel
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_auto.*
-import kotlinx.android.synthetic.main.fragment_mantenimiento.view.*
 import kotlinx.android.synthetic.main.tarjeta_veh.view.*
 
 
