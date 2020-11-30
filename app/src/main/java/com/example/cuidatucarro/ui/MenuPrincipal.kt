@@ -2,6 +2,7 @@ package com.example.cuidatucarro.ui
 
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -13,7 +14,6 @@ import com.example.cuidatucarro.R
 import kotlinx.android.synthetic.main.activity_menu_principal.*
 
 class MenuPrincipal : AppCompatActivity() {
-
 
     private lateinit var navController: NavController
 
@@ -46,6 +46,7 @@ class MenuPrincipal : AppCompatActivity() {
     when(destination.id){
         R.id.fragemtagregarauto -> hideBottomNav()
         R.id.Mantenimientos -> hideBottomNav()
+        R.id.agregarMantenimientoMotor -> hideBottomNav()
         else-> showBottomNav()
     }
 

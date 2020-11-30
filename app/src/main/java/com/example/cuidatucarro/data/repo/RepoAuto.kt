@@ -2,12 +2,8 @@ package com.example.cuidatucarro.data.repo
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.cuidatucarro.domain.Repo
 import com.example.cuidatucarro.objetos.Autos
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlin.contracts.Returns
-import kotlin.text.toLong as toLong
-import com.example.cuidatucarro.vo.Resource
 import com.google.firebase.storage.FirebaseStorage
 
 class RepoAuto {
