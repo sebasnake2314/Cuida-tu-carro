@@ -45,10 +45,6 @@
                     android:textStyle="bold"
                     android:textColor="@android:color/white"/>
 
-
-
-
-
         </LinearLayout>
     </LinearLayout>
 
@@ -157,7 +153,7 @@
                             android:textStyle="bold" />
 
                         <EditText
-                            android:id="@+id/txtMarca"
+                            android:id="@+id/txtKilometraje"
                             android:layout_width="230dp"
                             android:layout_height="wrap_content"
                             android:ems="10"
@@ -182,7 +178,7 @@
                             android:textStyle="bold" />
 
                         <EditText
-                            android:id="@+id/txtModelo"
+                            android:id="@+id/txtTipoAceite"
                             android:layout_width="230dp"
                             android:layout_height="wrap_content"
                             android:ems="10"
@@ -207,7 +203,7 @@
                             android:textStyle="bold" />
 
                         <EditText
-                            android:id="@+id/txtKilo"
+                            android:id="@+id/txtMarcaFiltro"
                             android:layout_width="230dp"
                             android:layout_height="wrap_content"
                             android:ems="10"
@@ -231,7 +227,7 @@
                             android:textStyle="bold" />
 
                         <EditText
-                            android:id="@+id/lugarCambio"
+                            android:id="@+id/txtLugarCambio"
                             android:layout_width="230dp"
                             android:layout_height="wrap_content"
                             android:ems="10"
@@ -247,7 +243,23 @@
             </LinearLayout>
 
         </LinearLayout>
+
+            <Button
+                android:id="@+id/btnAddMant"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Agregar Mantenimiento"
+                android:background="@drawable/stylebottons"
+                android:textColor="@android:color/white"
+                android:padding="5dp"
+                android:layout_marginVertical="90dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"/>
+
         </LinearLayout>
+
+
+
     </ScrollView>
 
     </LinearLayout>
