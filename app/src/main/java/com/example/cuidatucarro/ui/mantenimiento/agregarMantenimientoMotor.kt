@@ -16,21 +16,29 @@ import kotlinx.android.synthetic.main.fragment_agregar_mantenimiento.*
 import java.util.*
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import com.example.cuidatucarro.objetos.Autos
+import com.example.cuidatucarro.objetos.mantenimientoMotor
 import com.example.cuidatucarro.recyclers.MainAdapter
 import kotlinx.android.synthetic.main.fragment_agregarauto.*
+import kotlinx.android.synthetic.main.fragment_auto.*
 
 class agregarMantenimientoMotor : Fragment() {
     private var ListaMantenimientoMotor = mutableListOf<tipoMatenimientoMotor>()
     private val viewModel by lazy { ViewModelProvider(this).get(mantenimientoViewModel::class.java) }
     private lateinit var adapter : MainAdapter
     private lateinit var mantenimientosMotor : Array<String>
-
+    private lateinit var auto:Autos
     var savedia = 0
     var savemes = 0
     var saveanio = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        requireArguments().let{
+            auto = it.getParcelable("auto")!!
+        }
 
     }
 
@@ -50,7 +58,6 @@ class agregarMantenimientoMotor : Fragment() {
         txtTipoMantenimiento.setOnClickListener {
             popTipoMantenimientoMotor()
         }
-
 
         txtFecha.setOnClickListener {
             val now = Calendar.getInstance()
@@ -76,6 +83,24 @@ class agregarMantenimientoMotor : Fragment() {
             datePickerDialog.show(activity?.fragmentManager,"")
         }
 
+        btnAddMant.setOnClickListener{
+                val id_veh = auto.id_auto
+                val tipoMant = txtTipoMantenimiento.text.toString()
+                val fecha = txtFecha.text.toString()
+                val Kilometraje = txtKilometraje.text.toString()
+                val tipoAceite =  txtTipoAceite.text.toString()
+                val marcaFiltro = txtMarcaFiltro.text.toString()
+                val lugarCambio = txtLugarCambio.text.toString()
+
+                val mant = mantenimientoMotor(id_veh!!,tipoMant!!, fecha!!,(Kilometraje!!).toInt(),tipoAceite!!,marcaFiltro!!,lugarCambio!!)
+
+
+            viewModel.agregarMantenimientoMotor(mant)
+
+            findNavController().navigate(R.id.navigation_home)
+
+        }
+
     }
 
    private fun popTipoMantenimientoMotor() {
@@ -90,7 +115,7 @@ class agregarMantenimientoMotor : Fragment() {
     }
 
     private fun tiposMantenimientoMotor(){
-        viewModel.traerTipoMantenimientoMotor().observe(viewLifecycleOwner, Observer {
+        viewModel.traerTipoMantenimientoMotor("motor").observe(viewLifecycleOwner, Observer {
             var count =0
             for (i in it) {
 
