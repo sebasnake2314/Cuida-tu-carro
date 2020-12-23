@@ -67,7 +67,9 @@
             android:layout_columnWeight="1"
             android:layout_margin="12dp"
             app:cardCornerRadius="12dp"
-            app:cardElevation="6dp">
+            app:cardElevation="6dp"
+            android:clickable="false"
+            android:foreground="@android:color/darker_gray">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -91,7 +93,7 @@
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
 
-            </LinearLayout>
+            </LinearLayout> -->
 
         </androidx.cardview.widget.CardView>
 
@@ -140,7 +142,9 @@
             android:layout_columnWeight="1"
             android:layout_margin="12dp"
             app:cardCornerRadius="12dp"
-            app:cardElevation="6dp">
+            app:cardElevation="6dp"
+            android:clickable="false"
+            android:foreground="@android:color/darker_gray">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -184,7 +188,9 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="16sp">
+                android:padding="16sp"
+                android:clickable="false"
+                android:foreground="@android:color/darker_gray">
 
                 <ImageView
                     android:layout_width="80dp"
@@ -213,7 +219,9 @@
             android:layout_columnWeight="1"
             android:layout_margin="12dp"
             app:cardCornerRadius="12dp"
-            app:cardElevation="6dp">
+            app:cardElevation="6dp"
+            android:clickable="false"
+            android:foreground="@android:color/darker_gray">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -250,7 +258,9 @@
             android:layout_columnWeight="1"
             android:layout_margin="12dp"
             app:cardCornerRadius="12dp"
-            app:cardElevation="6dp">
+            app:cardElevation="6dp"
+            android:clickable="false"
+            android:foreground="@android:color/darker_gray">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -272,7 +282,8 @@
                     android:text="Cauchos o Neumáticos"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    />
 
             </LinearLayout>
 

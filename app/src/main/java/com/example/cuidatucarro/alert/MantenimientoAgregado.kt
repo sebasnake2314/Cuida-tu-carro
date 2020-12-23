@@ -5,10 +5,10 @@ import android.os.Bundle
 import com.example.cuidatucarro.R
 
 
-class VehiculoAgregado : AppCompatActivity() {
+class MantenimientoAgregado : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_vehiculo_agregado)
+        setContentView(R.layout.activity_mantenimiento_agregado)
     }
 }

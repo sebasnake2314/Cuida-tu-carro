@@ -2,12 +2,13 @@ package com.example.cuidatucarro.ui.mantenimiento
 
 
 import android.app.AlertDialog
+import android.media.MediaPlayer
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.MutableLiveData
+import android.widget.Button
 import androidx.lifecycle.ViewModelProvider
 import com.example.cuidatucarro.R
 import com.example.cuidatucarro.objetos.tipoMatenimientoMotor
@@ -20,10 +21,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.cuidatucarro.objetos.Autos
 import com.example.cuidatucarro.objetos.mantenimientoMotor
 import com.example.cuidatucarro.recyclers.MainAdapter
-import kotlinx.android.synthetic.main.fragment_agregarauto.*
-import kotlinx.android.synthetic.main.fragment_auto.*
 
-class agregarMantenimientoMotor : Fragment() {
+class agregarMantenimientoMotor() : Fragment() {
     private var ListaMantenimientoMotor = mutableListOf<tipoMatenimientoMotor>()
     private val viewModel by lazy { ViewModelProvider(this).get(mantenimientoViewModel::class.java) }
     private lateinit var adapter : MainAdapter
@@ -32,6 +31,7 @@ class agregarMantenimientoMotor : Fragment() {
     var savedia = 0
     var savemes = 0
     var saveanio = 0
+    var mediaPlayer: MediaPlayer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,6 +96,7 @@ class agregarMantenimientoMotor : Fragment() {
 
 
             viewModel.agregarMantenimientoMotor(mant)
+            showAlertDialogSuccess()
 
             findNavController().navigate(R.id.navigation_home)
 
@@ -103,7 +104,7 @@ class agregarMantenimientoMotor : Fragment() {
 
     }
 
-   private fun popTipoMantenimientoMotor() {
+    private fun popTipoMantenimientoMotor() {
         val dialogBuilder = AlertDialog.Builder(activity)
         dialogBuilder.setItems(mantenimientosMotor){dialog, which ->
             txtTipoMantenimiento.setError(null)
@@ -130,6 +131,23 @@ class agregarMantenimientoMotor : Fragment() {
             }
             //popTipoMantenimientoMotor()
         })
+    }
+
+    //Ventana de guardado con Éxito
+    private fun showAlertDialogSuccess() {
+        var dialogBuilder = AlertDialog.Builder(activity)
+        val layoutView = layoutInflater.inflate(R.layout.activity_mantenimiento_agregado, null)
+        val dialogButton =
+            layoutView.findViewById<Button>(R.id.btnOk)
+        dialogBuilder.setView(layoutView)
+        dialogBuilder.setCancelable(false)
+        var alertDialog = dialogBuilder.create()
+        alertDialog.show()
+        mediaPlayer = MediaPlayer.create(context, R.raw.alarma)
+        mediaPlayer?.start()
+        dialogButton.setOnClickListener {
+            alertDialog.dismiss()
+        }
     }
 
 

@@ -8,6 +8,7 @@ import androidx.lifecycle.observe
 import com.example.cuidatucarro.data.repo.RepoAuto
 import com.example.cuidatucarro.domain.FirestoreUseCase
 import com.example.cuidatucarro.objetos.Autos
+import com.example.cuidatucarro.objetos.mantenientosAutos
 
 class AutoViewModel:ViewModel() {
 
@@ -32,6 +33,14 @@ class AutoViewModel:ViewModel() {
 
     fun eliminarVehículo(uriImgage:String,idvehiculo: String){
         repo.eliminarVehiculo(uriImgage,idvehiculo)
+    }
+
+    fun traerFechasServicios(id_auto:String, desVeh:String, patente:String):LiveData<MutableList<mantenientosAutos>>{
+        val mutableData = MutableLiveData<MutableList<mantenientosAutos>>()
+        repo.traerMantenimientos(id_auto,desVeh,patente).observeForever{ autosList->
+            mutableData.value = autosList
+        }
+        return mutableData
     }
 
 }

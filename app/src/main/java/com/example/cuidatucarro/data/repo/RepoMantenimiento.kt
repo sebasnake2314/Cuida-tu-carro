@@ -50,7 +50,13 @@ class RepoMantenimiento {
                 }
             }
 
+        actualizarKilometraje(mantenimientos.idVehiculo, mantenimientos.kilimetraje)
 
     }
 
+    fun actualizarKilometraje(idAuto:String, Kilometraje:Int){
+        db.collection("tb_vehiculo_usuario").document(idAuto).update(mapOf(
+            "aut_kilometraje_i" to Kilometraje
+        ))
+    }
 }
