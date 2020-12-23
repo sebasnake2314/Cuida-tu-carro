@@ -92,8 +92,6 @@ class FirebaseRepo {
             "auto_uri_foto" to uriPhoto
 
         ))
-
-
     }
 
     //Eliminar vehiculo

@@ -43,10 +43,10 @@ class mantenimiento : Fragment() {
 
         btnmotor.setOnClickListener {
 
-
-            val bundle = Bundle()
+           val bundle = Bundle()
             bundle.putParcelable("auto", auto)
-            findNavController().navigate(R.id.agregarMantenimientoMotor, bundle)
+           findNavController().navigate(R.id.agregarMantenimientoMotor, bundle)
+
 
             //findNavController().navigate(R.id.agregarMantenimientoMotor)
         }

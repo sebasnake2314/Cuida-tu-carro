@@ -53,4 +53,9 @@
         android:name="com.example.cuidatucarro.ui.mantenimiento.agregarMantenimientoMotor"
         android:label="Motor"
         tools:layout="@layout/fragment_agregar_mantenimiento" />
+    <fragment
+        android:id="@+id/nuevoMantenimientoMotor"
+        android:name="com.example.cuidatucarro.ui.mantenimiento.nuevoMantenimientoMotor"
+        android:label="fragment_nuevo_mantenimiento_motor"
+        tools:layout="@layout/fragment_nuevo_mantenimiento_motor" />
 </navigation>

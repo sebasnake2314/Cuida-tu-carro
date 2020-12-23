@@ -3,6 +3,7 @@ package com.example.cuidatucarro.data.repo
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.cuidatucarro.objetos.Autos
+import com.example.cuidatucarro.objetos.mantenientosAutos
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 
@@ -46,6 +47,24 @@ class RepoAuto {
             //db.collection("tb_vehiculo_usuario").document(idvehiculo).delete()
 
          FirebaseFirestore.getInstance().collection("tb_vehiculo_usuario").document(idvehiculo).delete()
+    }
+
+    fun traerMantenimientos(idVehiculo:String, desVeh:String, patente:String):LiveData<MutableList<mantenientosAutos>>{
+        val mutableData = MutableLiveData<MutableList<mantenientosAutos>>()
+        FirebaseFirestore.getInstance().collection("tb_mantenimientos")
+            .whereEqualTo("mant_id_auto",idVehiculo)
+            .get().addOnSuccessListener {result->
+                val listData = mutableListOf<mantenientosAutos>()
+                for(document in result ){
+                    val fecha = document.getString("mant_fecha")
+                    val tipoMant = document.getString("mant_tipo")
+
+                    val mant = mantenientosAutos(fecha!!,tipoMant!!, desVeh!!, patente!!)
+                    listData.add(mant)
+                }
+                mutableData.value = listData
+            }
+        return mutableData
     }
 
 
