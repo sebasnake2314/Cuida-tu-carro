@@ -58,8 +58,8 @@ class RepoAuto {
                 for(document in result ){
                     val fecha = document.getString("mant_fecha")
                     val tipoMant = document.getString("mant_tipo")
-
-                    val mant = mantenientosAutos(fecha!!,tipoMant!!, desVeh!!, patente!!)
+                    val kilometraje = document.get("mant_kilometraje")
+                    val mant = mantenientosAutos(fecha!!,tipoMant!!, desVeh!!, patente!!,kilometraje!!.toString().toLong())
                     listData.add(mant)
                 }
                 mutableData.value = listData

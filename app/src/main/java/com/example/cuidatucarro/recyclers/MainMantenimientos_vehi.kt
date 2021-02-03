@@ -42,6 +42,7 @@ class MainMantenimientos_vehi(private val context: Context): RecyclerView.Adapte
             itemView.txtpatente.text = mante.patente
             itemView.txtvehiculo.text = mante.desVehiculo
             itemView.txtServicio.text = mante.tipoMant
+            itemView.txtKilometraje.text = mante.kilometraje.toString()
         }
     }
 
