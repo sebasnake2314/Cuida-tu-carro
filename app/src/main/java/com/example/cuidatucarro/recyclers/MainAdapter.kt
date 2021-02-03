@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cuidatucarro.R
 import com.example.cuidatucarro.objetos.Autos
+import com.example.cuidatucarro.objetos.mantenientosAutos
 import com.example.cuidatucarro.objetos.tipoMatenimientoMotor
 import kotlinx.android.synthetic.main.item_row_autos.view.*
 
@@ -56,4 +57,5 @@ class MainAdapter(private val context: Context,
             itemView.txtKilometraje.text = user.aut_kilometraje_i.toString()
         }
     }
+
 }

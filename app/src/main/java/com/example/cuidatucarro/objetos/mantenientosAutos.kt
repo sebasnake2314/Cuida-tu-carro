@@ -7,6 +7,7 @@ import kotlinx.android.parcel.Parcelize
 data class mantenientosAutos(
     val fecha:String = "",
     val tipoMant:String = "",
-    val desVehiculo:String = "",
-    val patente:String
+    var desVehiculo:String = "",
+    val patente:String,
+    val kilometraje:Long
 ): Parcelable
