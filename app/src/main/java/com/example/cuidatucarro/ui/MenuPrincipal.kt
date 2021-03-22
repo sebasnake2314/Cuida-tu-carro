@@ -48,9 +48,7 @@ class MenuPrincipal : AppCompatActivity() {
         R.id.Mantenimientos -> hideBottomNav()
         R.id.agregarMantenimientoMotor -> hideBottomNav()
         else-> showBottomNav()
-    }
-
-
+            }
         }
     }
 

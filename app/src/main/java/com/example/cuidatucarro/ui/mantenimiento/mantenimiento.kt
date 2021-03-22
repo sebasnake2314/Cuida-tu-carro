@@ -1,6 +1,5 @@
 package com.example.cuidatucarro.ui.mantenimiento
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,8 +9,6 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.cuidatucarro.R
 import com.example.cuidatucarro.objetos.Autos
-import com.example.cuidatucarro.ui.autos.ImagenVehiculo
-import kotlinx.android.synthetic.main.activity_imagen_vehiculo.*
 import kotlinx.android.synthetic.main.fragment_mantenimiento.*
 
 class mantenimiento : Fragment() {
@@ -24,6 +21,7 @@ class mantenimiento : Fragment() {
         requireArguments().let{
             auto = it.getParcelable("auto")!!
         }
+
     }
 
     override fun onCreateView(
@@ -40,15 +38,10 @@ class mantenimiento : Fragment() {
         datosVehiculo.text = "${auto.aut_marca_c} ${auto.aut_modelo_c}"
         Glide.with(this).load(auto.aut_image).into(image_auto)
 
-
         btnmotor.setOnClickListener {
-
            val bundle = Bundle()
             bundle.putParcelable("auto", auto)
            findNavController().navigate(R.id.agregarMantenimientoMotor, bundle)
-
-
-            //findNavController().navigate(R.id.agregarMantenimientoMotor)
         }
 
     }
