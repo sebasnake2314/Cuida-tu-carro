@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cuidatucarro.R
@@ -22,13 +23,11 @@ import com.example.cuidatucarro.objetos.mantenientosAutos
 import com.example.cuidatucarro.recyclers.MainMantenimientos_vehi
 import com.example.cuidatucarro.viewmodel.AutoViewModel
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.fragment_agregarauto.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import sun.bob.mcalendarview.MCalendarView
 import sun.bob.mcalendarview.MarkStyle
 import sun.bob.mcalendarview.listeners.OnDateClickListener
 import sun.bob.mcalendarview.vo.DateData
-import java.time.Year
 import java.util.*
 
 
@@ -45,10 +44,7 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private var itemList =  arrayListOf("Todos")
     private var fechaSelect: String = ""
     val datosUsuario = FirebaseAuth.getInstance().currentUser
-    val fecha_1 = Calendar.getInstance()
-    val fecha_affter = Calendar.getInstance()
     val fecha_now_new: DateData = DateData(1900, 1, 1)
-    val fecha_now = Calendar.getInstance()
     var fechaExistente:Int = 0
 
     override fun onCreateView(
@@ -58,7 +54,6 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
     ): View? {
         val fragment = inflater.inflate(R.layout.fragment_home, container, false)
         return fragment
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,10 +63,12 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 activity?.finish()
             }
         })
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         calendar.markedDates.removeAdd()
         listMantenimientos.clear()
 
@@ -94,8 +91,8 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         )
 
         btnaddmantenimiento.setOnClickListener {
-
-            if (fechaSelect != ""){
+            popTransmision()
+            /*if (fechaSelect != ""){
                 popTransmision()
             } else{
                 Toast.makeText(
@@ -103,7 +100,7 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
                     "Debe seleccionar una fecha en el calendario",
                     Toast.LENGTH_SHORT
                 ).show()
-            }
+            }*/
 
 
         }
@@ -272,7 +269,7 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
                     //itemList.add(listVehículos[i].aut_marca_c + " " +  listVehículos[i].aut_modelo_c + " " + listVehículos[i].aut_patente_c)
                     //itemList[0] = "Todos - " + listVehículos.size + " Vehículos"
                     txtCantVeh.text =
-                        "Vehículos Disponibles Cant.: " + listVehículos.size.toString()
+                        "Vehículos Disponibles: " + listVehículos.size.toString()
                     itemList[0] = "Todos"
                     itemList.add(listVehículos[i].aut_patente_c)
                 }
@@ -378,12 +375,7 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 observeData()
             }
 
-           // listarecyclemant.clear()
-           //1 listarecyclemant = listrecyclemant
-
         }
-       // observeData()
-
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -393,24 +385,38 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
     //Pop transmisión
     fun popTransmision(){
         val dialogBuilder = AlertDialog.Builder(activity)
-
-        var transmision = arrayOf("")
-
+        var patentes = arrayOfNulls<String>(listVehículos.size)
 
         for (i in 0 until listVehículos.size) {
+            patentes.set(i, listVehículos[i].aut_patente_c)
+        }
 
-            transmision.set(i, listVehículos[i].aut_patente_c)
+        dialogBuilder.setItems(patentes){ dialog, which ->
+            var option = patentes[which]
+            var vehiculo:Autos = Autos()
+
+            if (option!= null || option != "") {
+
+                for (i in 0 until listVehículos.size) {
+                    if (listVehículos[i].aut_patente_c == option) {
+                        vehiculo = listVehículos[i]
+                    }
+                }
+
+                val bundle = Bundle()
+                bundle.putParcelable("auto", vehiculo)
+                findNavController().navigate(R.id.Mantenimientos,bundle)
+
+            }
 
         }
 
-        dialogBuilder.setItems(transmision){ dialog, which ->
-            txtTransmision.setError(null)
-            txtTransmision.setText(transmision[which])
-        }
         val alert = dialogBuilder.create()
-        alert.setTitle("Selecione patente para agregar Mantenimiento para la fecha de $fechaSelect")
+        alert.setTitle("Elegir a que patente se le agrega el Mantenimiento:")
         alert.show()
     }
+
+
 
 
 
