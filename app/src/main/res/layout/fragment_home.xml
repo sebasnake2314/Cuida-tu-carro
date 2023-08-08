@@ -9,27 +9,27 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_height="387dp"
         android:layout_gravity="center">
 
         <sun.bob.mcalendarview.MCalendarView
             android:id="@+id/calendar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".MainActivity"/>
+            android:layout_height="390dp"
+            tools:context=".MainActivity" />
 
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-       android:layout_marginTop="5dp"
         android:id="@+id/btnaddmantenimiento"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="345dp"
+        android:layout_marginTop="5dp"
         android:backgroundTint="@color/colorPrimary"
         android:src="@drawable/ic_add"
-        app:fabSize="normal"
-        android:layout_marginLeft="345dp"
-        />
+        android:visibility="invisible"
+        app:fabSize="normal" />
 
     <LinearLayout
         android:id="@+id/zonaSeleccion"

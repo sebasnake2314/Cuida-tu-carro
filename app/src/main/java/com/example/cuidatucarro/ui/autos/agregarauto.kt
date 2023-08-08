@@ -358,7 +358,7 @@ class agregarauto : Fragment() {
         val marca = txtMarca.text.toString()
         val model = txtModelo.text.toString()
         val km = txtKm.text.toString()
-        val transmision = txtTransmision.text.toString()
+        var transmision = txtTransmision.text.toString()
 
             viewModel.agregarNuevoVehocilo(
                 Auth?.uid.toString(),
@@ -372,7 +372,7 @@ class agregarauto : Fragment() {
             showAlertDialogSuccess()
 
             btnAddVeh.isClickable = true
-            findNavController().navigate(R.id.navigation_home)
+            findNavController().navigate(R.id.navigation_auto)
 
     }
 
@@ -394,7 +394,7 @@ class agregarauto : Fragment() {
             urlImage,
             uriPhoto)
         btnAddVeh.isClickable = true
-        findNavController().navigate(R.id.navigation_home)
+        findNavController().navigate(R.id.navigation_auto)
         Toast.makeText(activity,"Actualización Realizada con Éxito",Toast.LENGTH_SHORT).show()
     }
 

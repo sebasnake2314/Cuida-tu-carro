@@ -62,7 +62,8 @@ class AutosFragment : Fragment(),MainAdapter.OnAutoClickListener {
         observeData()
 
         floatingActionButton = view.findViewById(R.id.btnadd)
-
+        esconderBar  = false
+    /*
     btnbar.setOnClickListener{
         if (esconderBar){
             floatingActionButton.show()
@@ -70,9 +71,9 @@ class AutosFragment : Fragment(),MainAdapter.OnAutoClickListener {
         }else{
             floatingActionButton.hide()
             esconderBar = true
-        }
-    }
 
+    }
+}*/
         btnadd.setOnClickListener{
             coordinatorLayout.visibility = View.VISIBLE
 
@@ -186,7 +187,7 @@ class AutosFragment : Fragment(),MainAdapter.OnAutoClickListener {
         btnModificar.setOnClickListener{
 
         alertDialog.dismiss()
-        val bundle = Bundle()
+        var bundle = Bundle()
             bundle.putParcelable("auto", auto)
         findNavController().navigate(R.id.fragemtagregarauto, bundle)
 

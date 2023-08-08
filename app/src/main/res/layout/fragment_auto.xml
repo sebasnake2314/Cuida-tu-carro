@@ -78,7 +78,8 @@
             android:backgroundTint="@color/colorPrimary"
             app:fabAlignmentMode="center"
             app:fabCradleRoundedCornerRadius="10dp"
-            app:navigationIcon="@drawable/ic_eyes" />
+            />
+        <!-- app:navigationIcon="@drawable/ic_eyes"-->
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btnadd"

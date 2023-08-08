@@ -43,7 +43,7 @@
         android:layout_margin="6dp"
         android:text="Seleccionar como quieres ingresar"
         android:textAlignment="center" />
-
+<!--
     <Button
         android:id="@+id/btn_login_google"
         android:layout_width="match_parent"
@@ -52,7 +52,7 @@
         android:textColor="@android:color/white"
         android:layout_margin="10dp"
         android:text="Iniciar con cuenta Google" />
-
+-->
     <Button
         android:id="@+id/btn_login_manual"
         android:layout_width="match_parent"

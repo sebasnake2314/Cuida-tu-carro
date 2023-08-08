@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@id/navigation_auto">
 
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.cuidatucarro.ui.home.HomeFragment"
         android:label="@string/title_principal"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_navigation_home_to_Mantenimientos"
             app:destination="@id/Mantenimientos" />
@@ -19,7 +19,7 @@
         android:id="@+id/navigation_auto"
         android:name="com.example.cuidatucarro.ui.autos.AutosFragment"
         android:label="@string/title_autos"
-        tools:layout="@layout/fragment_auto" >
+        tools:layout="@layout/fragment_auto">
         <action
             android:id="@+id/action_navigation_auto_to_fragemtagregarauto"
             app:destination="@id/fragemtagregarauto" />
@@ -47,7 +47,7 @@
         android:id="@+id/Mantenimientos"
         android:name="com.example.cuidatucarro.ui.mantenimiento.mantenimiento"
         android:label="Mantenimientos"
-        tools:layout="@layout/fragment_mantenimiento" >
+        tools:layout="@layout/fragment_mantenimiento">
         <action
             android:id="@+id/action_Mantenimientos_to_agregarMantenimientoMotor"
             app:destination="@id/agregarMantenimientoMotor" />
