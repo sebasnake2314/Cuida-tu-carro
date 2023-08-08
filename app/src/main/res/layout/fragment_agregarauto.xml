@@ -100,7 +100,6 @@
                     android:orientation="vertical"
                     android:gravity="center_horizontal">
 
-                    /*--Fila Patente--*/
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -126,7 +125,6 @@
                             android:layout_gravity="center_vertical"/>
                     </LinearLayout>
 
-                    /*--Fila Marca*/
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -146,12 +144,11 @@
                             android:layout_width="230dp"
                             android:layout_height="wrap_content"
                             android:ems="10"
-                            android:inputType="textPersonName"
+                            android:inputType="textCapCharacters"
                             android:layout_gravity="center_vertical"/>
 
                     </LinearLayout>
 
-                    /*-Fila Modelo-*/
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -171,12 +168,11 @@
                             android:layout_width="230dp"
                             android:layout_height="wrap_content"
                             android:ems="10"
-                            android:inputType="textPersonName"
+                            android:inputType="textCapCharacters"
                             android:layout_gravity="center_vertical"/>
 
                     </LinearLayout>
 
-                    /*--Fila Kilometraje*/
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -201,7 +197,6 @@
 
                     </LinearLayout>
 
-                    /*--Fila Transmisión*/
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

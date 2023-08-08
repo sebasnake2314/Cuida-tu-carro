@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import com.example.cuidatucarro.R
+import com.example.cuidatucarro.ui.autos.AutosFragment
 import com.example.cuidatucarro.viewmodel.FirestoreViewModel
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
@@ -31,7 +32,6 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-
         setTheme(R.style.AppTheme)
         Thread.sleep(2000)
 
@@ -41,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
         progressbar = findViewById(R.id.progressBar)
 
         goTo()
-        googleLogin()
+        //googleLogin()
         botones()
 
     }
@@ -76,12 +76,13 @@ class LoginActivity : AppCompatActivity() {
 /*                val intent = Intent(this, MenuPrincipal::class.java)*/
             /*    intent.putExtra("iduser",dato)*/
                 startActivity(Intent(this, MenuPrincipal::class.java))
+                //startActivity(Intent(this, AutosFragment::class.java))
             finish()
             }
         }
     }
 
-    fun googleLogin(){
+    /*fun googleLogin(){
         val providers = arrayListOf(
             AuthUI.IdpConfig.GoogleBuilder().build())
         btn_login_google.setOnClickListener{
@@ -95,7 +96,7 @@ class LoginActivity : AppCompatActivity() {
                 RC_SIGN_IN)
             progressbar.visibility = View.GONE
         }
-    }
+    }*/
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -114,6 +115,7 @@ class LoginActivity : AppCompatActivity() {
 /*                val intent = Intent(this, MenuPrincipal::class.java)*/
                 /*intent.putExtra("iduser",dato)*/
                 /*startActivity(intent)*/
+                //startActivity(Intent(this, MenuPrincipal::class.java))
                 startActivity(Intent(this, MenuPrincipal::class.java))
                 finish()
 
