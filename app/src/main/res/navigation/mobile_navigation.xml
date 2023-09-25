@@ -32,12 +32,11 @@
         android:id="@+id/navigation_perfil"
         android:name="com.example.cuidatucarro.ui.Perfil.PerfilFragment"
         android:label="@string/title_perfil"
-        tools:layout="@layout/fragment_perfil" />
-    <activity
-        android:id="@+id/loginActivity"
-        android:name="com.example.cuidatucarro.ui.LoginActivity"
-        android:label="activity_login"
-        tools:layout="@layout/activity_login" />
+        tools:layout="@layout/fragment_perfil" >
+        <action
+            android:id="@+id/action_navigation_perfil_to_loginManualActivity"
+            app:destination="@id/loginManualActivity" />
+    </fragment>
     <fragment
         android:id="@+id/fragemtagregarauto"
         android:name="com.example.cuidatucarro.ui.autos.agregarauto"
@@ -57,9 +56,9 @@
         android:name="com.example.cuidatucarro.ui.mantenimiento.agregarMantenimientoMotor"
         android:label="Motor"
         tools:layout="@layout/fragment_agregar_mantenimiento" />
-    <fragment
-        android:id="@+id/nuevoMantenimientoMotor"
-        android:name="com.example.cuidatucarro.ui.mantenimiento.nuevoMantenimientoMotor"
-        android:label="fragment_nuevo_mantenimiento_motor"
-        tools:layout="@layout/fragment_nuevo_mantenimiento_motor" />
+    <activity
+        android:id="@+id/loginManualActivity"
+        android:name="com.example.cuidatucarro.ui.LoginManualActivity"
+        android:label="activity_login_manual"
+        tools:layout="@layout/activity_login_manual" />
 </navigation>

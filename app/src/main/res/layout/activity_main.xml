@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        android:indeterminate="true"/>
+        android:indeterminate="true"
+        android:indeterminateTint="@color/colorPrimary"/>
 
     <EditText
         android:id="@+id/txtNombre"

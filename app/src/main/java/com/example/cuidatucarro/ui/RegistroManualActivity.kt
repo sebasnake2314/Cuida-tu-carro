@@ -1,8 +1,6 @@
 package com.example.cuidatucarro.ui
 
 import android.app.AlertDialog
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
@@ -10,12 +8,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.cuidatucarro.R
 import com.example.cuidatucarro.viewmodel.FirestoreViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import kotlinx.android.synthetic.main.activity_login_manual.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class RegistroManualActivity : AppCompatActivity() {
@@ -56,27 +54,34 @@ class RegistroManualActivity : AppCompatActivity() {
 
             if (!TextUtils.isEmpty(nombre) && !TextUtils.isEmpty(apellido) && !TextUtils.isEmpty(correoElectronico) && !TextUtils.isEmpty(contrasena)) {
                 if (contrasena.length >= 8 ) {
-
-                    auth.createUserWithEmailAndPassword(correoElectronico,contrasena)
-                        .addOnCompleteListener(this) {
-                                task ->
-                            if(task.isSuccessful){
-                                val user:FirebaseUser?=auth.currentUser
-
-                                viewModel.crearUsuario(nombre, apellido, user?.uid.toString())
-
-                                enviarCorreo(user)
-
+                    auth.fetchSignInMethodsForEmail(correoElectronico).addOnCompleteListener(this)
+                    {task ->
+                        if (task.isSuccessful) {
+                            val check = !task.result!!.signInMethods!!.isEmpty()
+                            if (check) {
+                                Toast.makeText(applicationContext, "El email ya se encuentra registrado", Toast.LENGTH_LONG).show()
                                 progressbar.visibility = View.GONE
+                            } else {
+                                auth.createUserWithEmailAndPassword(correoElectronico,contrasena)
+                              .addOnCompleteListener(this) {
+                                      task ->
+                                  if(task.isSuccessful){
+                                      val user:FirebaseUser?=auth.currentUser
 
-           /*                     startActivity(Intent(this,LoginActivity::class.java))
-                                startActivity(Intent(this,LoginActivity::class.java))*/
+                                      viewModel.crearUsuario(nombre, apellido, user?.uid.toString())
 
-                       /*         finish()*/
-                            }else{
-                                Toast.makeText(this, "Ocurrio un problema al intentar registrar el nuevo usuario", Toast.LENGTH_SHORT).show()
+                                      enviarCorreo(user)
+
+                                      progressbar.visibility = View.GONE
+
+                                      Toast.makeText(applicationContext, "Usuario registrado", Toast.LENGTH_LONG).show()
+                                  }else{
+                                      Toast.makeText(this, "Ocurrio un problema al intentar registrar el nuevo usuario", Toast.LENGTH_SHORT).show()
+                                  }
+                              }
                             }
                         }
+                    }
                 }else{
                     Toast.makeText(this, "La contraseña debe de tener mínimo 8 caracteres", Toast.LENGTH_SHORT).show()
                     progressbar.visibility = View.GONE
@@ -100,7 +105,6 @@ class RegistroManualActivity : AppCompatActivity() {
 
                 if (contrasena.isEmpty()){
                     txtContrasena.setError("La contraseña es un campo Obligatiorio para completar")
-                    progressbar.visibility = View.GONE
                 }
                 /*Toast.makeText(this, "Se deben de completar todos los datos solicitados", Toast.LENGTH_SHORT).show()*/
             }

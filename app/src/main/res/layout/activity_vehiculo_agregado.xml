@@ -61,7 +61,7 @@
                 android:layout_marginBottom="20dp"
                 android:textSize="18dp"
                 android:gravity="center"
-                android:text="Ya tienes un nuevo vehículo agregado a tu catálogo."/>
+                android:text="Ya tienes un nuevo auto agregado a la App."/>
 
             <Button
                 android:id="@+id/btnOk"

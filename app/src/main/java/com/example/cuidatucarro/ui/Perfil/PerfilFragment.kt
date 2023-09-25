@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -16,12 +15,9 @@ import com.bumptech.glide.Glide
 import com.example.cuidatucarro.R
 import com.example.cuidatucarro.data.network.RepoImplement
 import com.example.cuidatucarro.domain.UseCaseImpl
-import com.example.cuidatucarro.ui.LoginActivity
-import com.example.cuidatucarro.ui.MenuPrincipal
 import com.example.cuidatucarro.viewmodel.MainViewModel
 import com.example.cuidatucarro.viewmodel.VMFactory
 import com.google.firebase.auth.FirebaseAuth
-import com.squareup.picasso.Picasso
 import com.example.cuidatucarro.vo.Resource
 import kotlinx.android.synthetic.main.fragment_perfil.*
 import kotlinx.android.synthetic.main.item_row_autos.view.*
@@ -44,7 +40,7 @@ class PerfilFragment : Fragment() {
 
         txtIdUsuario.text = Auth?.uid.toString()
 
-        txtNombreUsuario.text = Auth?.displayName.toString()
+        //txtNombreUsuario.text = Auth?.displayName.toString()
 
         if ((Auth?.displayName.toString() == "") or (Auth?.displayName.toString() == "null"))  {
             observeData()
@@ -77,21 +73,16 @@ class PerfilFragment : Fragment() {
               /*  activity?.finish()*/
                 val fAuth = FirebaseAuth.getInstance()
                 fAuth.signOut()
-                findNavController().navigate(R.id.loginActivity)
+                findNavController().navigate(R.id.loginManualActivity)
                 activity?.finish()
             }
             dialogBuilder.setButton(AlertDialog.BUTTON_NEGATIVE, "No") { _: DialogInterface?, _: Int ->
                 dialogBuilder.cancel()
             }
             dialogBuilder.show()
-
-
         }
 
     }
-
-
-
 
     private fun showAlertDialogSuccess() {
         var dialogBuilder = android.app.AlertDialog.Builder(activity).create()

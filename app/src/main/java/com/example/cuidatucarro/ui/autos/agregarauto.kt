@@ -6,7 +6,6 @@ import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.location.Location
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Build
@@ -18,16 +17,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.core.content.contentValuesOf
 import androidx.core.net.toUri
-import androidx.core.view.isInvisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.cuidatucarro.R
@@ -40,17 +35,11 @@ import com.example.cuidatucarro.viewmodel.VMFactory
 import com.example.cuidatucarro.vo.Resource
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.storage.FirebaseStorage
-import io.grpc.Context
 import kotlinx.android.synthetic.main.fragment_agregarauto.*
 import kotlinx.android.synthetic.main.fragment_agregarauto.view.*
 import kotlinx.android.synthetic.main.fragment_agregarauto.view.txtMarca
 import kotlinx.android.synthetic.main.fragment_agregarauto.view.txtModelo
-import kotlinx.android.synthetic.main.fragment_auto.*
-import kotlinx.android.synthetic.main.item_row_autos.view.*
-import kotlinx.coroutines.android.awaitFrame
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.internal.artificialFrame
-import kotlinx.coroutines.tasks.await
+import kotlinx.android.synthetic.main.fragment_perfil.*
 import java.util.*
 import android.media.MediaPlayer.create as mediaPlayerCreate
 
@@ -59,7 +48,7 @@ class agregarauto : Fragment() {
 
     private val Auth = FirebaseAuth.getInstance().currentUser
     private val viewModel by lazy {ViewModelProvider(this).get(AutoViewModel::class.java) }
-    private val transmision = arrayOf("Automático", "Sincrónica")
+    private val transmision = arrayOf("Automático", "Manual")
     private val selectpickture = arrayOf("Galería", "Cámara")
 
     private val viewModelauto by lazy {ViewModelProvider(this, VMFactory(UseCaseImpl(RepoImplement()))).get(MainViewModel::class.java)}
@@ -68,7 +57,6 @@ class agregarauto : Fragment() {
     private lateinit var txtMarca: EditText
     private lateinit var txtModelo: EditText
     private lateinit var txtKm: EditText
-    private lateinit var txtTrasmision: TextView
     private lateinit var auto:Autos
     private lateinit var actAutos:MutableList<Autos>
     private var foto: Uri? = null
@@ -78,7 +66,7 @@ class agregarauto : Fragment() {
 
     var fotoCamarara: Uri? = null
     var mediaPlayer: MediaPlayer? = null
-    var selectedPhotoUri: Uri? = null
+    //var selectedPhotoUri: Uri? = null
     var urlimage:String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -99,7 +87,7 @@ class agregarauto : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        metodo = 0
         if (auto.aut_patente_c != "") {
             //Carga de datos de vehículo
             view.txtPatente.setText(auto.aut_patente_c)
@@ -117,7 +105,10 @@ class agregarauto : Fragment() {
             view.textviewcambiofoto.text = "Presione para cambiar foto"
 
             metodo = 1
-            foto = auto.auto_uri_foto.toString().toUri()
+            foto = auto.auto_uri_foto.toUri()
+        }else{
+            foto = R.mipmap.ic_logo_cuida_tu_carro.toString().toUri()
+            //uploadImage(foto,auto.auto_uri_foto)
         }
 
         btnAddVeh.setOnClickListener {
@@ -128,14 +119,15 @@ class agregarauto : Fragment() {
             txtModelo = view.findViewById(R.id.txtModelo)
             txtKm = view.findViewById(R.id.txtKilo)
 
-            if (!TextUtils.isEmpty(txtPatente.text) && !TextUtils.isEmpty(txtMarca.text) && !TextUtils.isEmpty(txtModelo.text) && !TextUtils.isEmpty(txtKm.text) && !TextUtils.isEmpty(txtTransmision.text.toString()) && foto != null) {
+            if (!TextUtils.isEmpty(txtPatente.text) && !TextUtils.isEmpty(txtMarca.text) && !TextUtils.isEmpty(txtModelo.text) && !TextUtils.isEmpty(txtKm.text) && !TextUtils.isEmpty(txtTransmision.text.toString())) {
+            //if (!TextUtils.isEmpty(txtPatente.text) && !TextUtils.isEmpty(txtMarca.text) && !TextUtils.isEmpty(txtModelo.text) && !TextUtils.isEmpty(txtKm.text) && !TextUtils.isEmpty(txtTransmision.text.toString()) && foto != null) {
                 btnAddVeh.isClickable = false
                 progressBarAddAuto.visibility = view.visibility
                 btnAddVeh.text = "Cargando..."
 
-                if (metodo == 0){
-                    uploadImage(foto,"")
-                }else{
+                //if (metodo == 0){
+                    //uploadImage(foto, null.toString())
+                //}else{
 
                     actAutos = mutableListOf<Autos>()
 
@@ -152,7 +144,8 @@ class agregarauto : Fragment() {
 
                     uploadImage(foto,auto.auto_uri_foto)
 
-                }
+
+               // }
                 btnAddVeh.isClickable = true
             }else{
 
@@ -181,11 +174,17 @@ class agregarauto : Fragment() {
                /* Toast.makeText(activity, "Completa todos los campos solicitados", Toast.LENGTH_SHORT).show()*/
             progressBarAddAuto.visibility = View.INVISIBLE
             btnAddVeh.isClickable = true
+            }
         }
-        }
+
         txtTransmision.setOnClickListener{
             popTransmision()
-       }
+        }
+
+        bottontransmision.setOnClickListener{
+            popTransmision()
+        }
+
         btnSelectPickture.setOnClickListener{
             popSelectPickture()
         }
@@ -252,6 +251,7 @@ class agregarauto : Fragment() {
     //Se abre la Galería de fotos
     private fun muestraGaleria(){
         /*Toast.makeText(activity,"Aqui van las imagenes", Toast.LENGTH_LONG).show()*/
+        metodo = 2
         val intentGaleria = Intent(Intent.ACTION_PICK)
         intentGaleria.type = "image/*"
         startActivityForResult(intentGaleria, REQUEST_GALERIA)
@@ -259,6 +259,7 @@ class agregarauto : Fragment() {
 
     //Activar Camara
     private fun muestraCamara(){
+        metodo = 2
         val value = ContentValues()
         value.put(MediaStore.Images.Media.TITLE, "Nueva Imagen")
         fotoCamarara = context?.contentResolver?.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,value)
@@ -358,7 +359,7 @@ class agregarauto : Fragment() {
         val marca = txtMarca.text.toString()
         val model = txtModelo.text.toString()
         val km = txtKm.text.toString()
-        var transmision = txtTransmision.text.toString()
+        val transmision = txtTransmision.text.toString()
 
             viewModel.agregarNuevoVehocilo(
                 Auth?.uid.toString(),
@@ -416,7 +417,8 @@ class agregarauto : Fragment() {
                     actualizarAuto(urlimage, filename)
                 }
 
-        }else {
+        }
+        else if(metodo == 2) {
 
             filename = UUID.randomUUID().toString() + Auth?.uid.toString()
             val  ref= FirebaseStorage.getInstance().getReference("/images/$filename" )
@@ -426,12 +428,28 @@ class agregarauto : Fragment() {
                     ref.downloadUrl.addOnSuccessListener {
                         urlimage = it.toString()
 
-                        if (metodo==0){
+                        if (metodo==2){
                             agregarAuto(urlimage, filename)
                         }
 
                     }
                 }
+        }
+        else
+        {
+            filename = auto.auto_uri_foto + Auth?.uid.toString()
+            val  ref= FirebaseStorage.getInstance().getReference("/images/$filename" )
+
+            ref.putFile(selectedPhotoUri!!)
+                .addOnSuccessListener {
+                    ref.downloadUrl.addOnSuccessListener {
+                        urlimage = it.toString()
+
+                        agregarAuto(urlimage, filename)
+
+                    }
+                }
+            agregarAuto(urlimage, filename)
         }
 
     }

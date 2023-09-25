@@ -28,6 +28,10 @@ private lateinit var viewModel: FirestoreViewModel
 class LoginManualActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setTheme(R.style.AppTheme)
+        Thread.sleep(2000)
+
         setContentView(R.layout.activity_login_manual)
 
         progressbar = findViewById(R.id.progressBar)
@@ -99,13 +103,32 @@ class LoginManualActivity : AppCompatActivity() {
             }
 
         }
-
+        progressBar.visibility = View.GONE
     }
 
     //Tocar el boton back
+    /*
     override fun onBackPressed(){
         startActivity(Intent(this,LoginActivity::class.java))
         finish()
+    }*/
+
+    override fun onBackPressed(){
+
+        val builder = AlertDialog.Builder(this).create()
+        builder.setTitle("Saliendo de Cuida tu carro")
+        builder.setMessage("¿Esta seguro en salir de la aplicación?")
+        builder.setButton(AlertDialog.BUTTON_POSITIVE,"Salir"){
+                _: DialogInterface?, _: Int ->
+            finish()
+            MenuPrincipal().finish()
+            LoginActivity().finish()
+        }
+        builder.setButton(AlertDialog.BUTTON_NEGATIVE,"No"){
+                _: DialogInterface?, _: Int ->
+            builder.cancel()
+        }
+        builder.show()
     }
 
 

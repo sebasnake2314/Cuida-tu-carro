@@ -94,7 +94,7 @@
                     android:textStyle="bold" />
 /*---------------------------------------------------------------*/
                 <LinearLayout
-                    android:layout_width="389dp"
+                    android:layout_width="384dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:orientation="vertical"
@@ -104,7 +104,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingLeft="20dp">
+                        android:paddingLeft="15dp">
 
                         <TextView
                             android:id="@+id/textViewPatente"
@@ -117,7 +117,7 @@
 
                         <EditText
                             android:id="@+id/txtPatente"
-                            android:layout_width="230dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:paddingTop="10dp"
                             android:ems="10"
@@ -129,7 +129,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingLeft="20dp">
+                        android:paddingLeft="15dp">
                         <TextView
                             android:id="@+id/textViewMarca"
                             android:layout_width="110dp"
@@ -141,7 +141,7 @@
 
                         <EditText
                             android:id="@+id/txtMarca"
-                            android:layout_width="230dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="10"
                             android:inputType="textCapCharacters"
@@ -153,7 +153,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingLeft="20dp">
+                        android:paddingLeft= "15dp">
                         <TextView
                             android:id="@+id/textViewModelo"
                             android:layout_width="110dp"
@@ -165,7 +165,7 @@
 
                         <EditText
                             android:id="@+id/txtModelo"
-                            android:layout_width="230dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="10"
                             android:inputType="textCapCharacters"
@@ -177,7 +177,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingLeft="20dp">
+                        android:paddingLeft="15dp">
                         <TextView
                             android:id="@+id/textViewKilometraje"
                             android:layout_width="110dp"
@@ -189,7 +189,7 @@
 
                         <EditText
                             android:id="@+id/txtKilo"
-                            android:layout_width="230dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ems="10"
                             android:inputType="numberSigned"
@@ -212,17 +212,28 @@
 
                         <TextView
                             android:id="@+id/txtTransmision"
-                            android:layout_width="230dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="5dp"
                             android:paddingTop="19dp"
                             android:hint="Pulsa aqui para seleccionar"
                             android:textSize="16dp" />
 
+                        <ImageButton
+                            android:id="@+id/bottontransmision"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:src="@drawable/baseline_keyboard_arrow_down_24"
+                            android:background="@color/fui_transparent"/>
+
+
                     </LinearLayout>
 
                 </LinearLayout>
-/*-------------------------------FIN--------------------------------*/
+
             </LinearLayout>
 
             <Button

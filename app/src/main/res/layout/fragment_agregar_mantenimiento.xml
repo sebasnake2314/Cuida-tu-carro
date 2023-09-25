@@ -70,7 +70,6 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp">
 
-                /*---------------------------------------------------------------*/
                 <LinearLayout
                     android:layout_width="389dp"
                     android:layout_height="wrap_content"
@@ -78,12 +77,11 @@
                     android:orientation="vertical"
                     android:gravity="center_horizontal">
 
-                    /*--Fila Tipo servicio--*/
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingLeft="20dp">
+                        android:paddingLeft="@dimen/text_medium">
 
                         <TextView
                             android:layout_width="110dp"
@@ -106,13 +104,11 @@
 
                     </LinearLayout>
 
-
-                    /*--Fila Fecha--*/
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingLeft="20dp">
+                        android:paddingLeft="@dimen/text_medium">
 
                         <TextView
                             android:id="@+id/textViewPatente"
@@ -136,12 +132,11 @@
 
                     </LinearLayout>
 
-                    /*--Fila Kilometraje*/
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingLeft="20dp">
+                        android:paddingLeft="@dimen/text_medium">
                         <TextView
                             android:id="@+id/textViewMarca"
                             android:layout_width="110dp"
@@ -161,12 +156,11 @@
 
                     </LinearLayout>
 
-                    /*-Fila Tipo Aceite-*/
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingLeft="20dp">
+                        android:paddingLeft="@dimen/text_medium">
                         <TextView
                             android:id="@+id/textViewModelo"
                             android:layout_width="110dp"
@@ -186,12 +180,11 @@
 
                     </LinearLayout>
 
-                    /*--Fila Marca Filtro*/
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingLeft="20dp">
+                        android:paddingLeft="@dimen/text_medium">
                         <TextView
                             android:id="@+id/textViewKilometraje"
                             android:layout_width="110dp"
@@ -211,12 +204,11 @@
 
                     </LinearLayout>
 
-                    /*--Fila Lugar de cambio*/
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:paddingLeft="20dp">
+                        android:paddingLeft="@dimen/text_medium">
                         <TextView
                             android:layout_width="110dp"
                             android:layout_height="45dp"
@@ -238,7 +230,7 @@
 
 
                 </LinearLayout>
-                /*-------------------------------FIN--------------------------------*/
+
             </LinearLayout>
 
         </LinearLayout>
