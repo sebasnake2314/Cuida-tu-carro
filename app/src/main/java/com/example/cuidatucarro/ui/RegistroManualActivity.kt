@@ -25,6 +25,7 @@ class RegistroManualActivity : AppCompatActivity() {
     private lateinit var txtApellido: EditText
     private lateinit var txtCorreo: EditText
     private lateinit var txtContrasena: EditText
+    private lateinit var txtConfirContrasena: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -35,6 +36,7 @@ class RegistroManualActivity : AppCompatActivity() {
         txtApellido = findViewById(R.id.txtApellido)
         txtCorreo = findViewById(R.id.txtEmail)
         txtContrasena = findViewById(R.id.txtPassword)
+        txtConfirContrasena = findViewById(R.id.txtPasswordConfir)
         progressbar = findViewById(R.id.progressBar)
         //Instancia de viewModel
         auth = FirebaseAuth.getInstance()
@@ -51,15 +53,16 @@ class RegistroManualActivity : AppCompatActivity() {
             val apellido = txtApellido.text.toString().trim()
             val correoElectronico: String = txtCorreo.text.toString().trim()
             val contrasena: String = txtContrasena.text.toString().trim()
+            val confirContrasena: String = txtConfirContrasena.text.toString()
 
             if (!TextUtils.isEmpty(nombre) && !TextUtils.isEmpty(apellido) && !TextUtils.isEmpty(correoElectronico) && !TextUtils.isEmpty(contrasena)) {
-                if (contrasena.length >= 8 ) {
+                if (contrasena.length >= 8 && contrasena == confirContrasena ) {
                     auth.fetchSignInMethodsForEmail(correoElectronico).addOnCompleteListener(this)
                     {task ->
                         if (task.isSuccessful) {
                             val check = !task.result!!.signInMethods!!.isEmpty()
                             if (check) {
-                                Toast.makeText(applicationContext, "El email ya se encuentra registrado", Toast.LENGTH_LONG).show()
+                                Toast.makeText(applicationContext, "El mail que intenta registrar pertenece a otro usuario. Intenta con un mail distinto", Toast.LENGTH_LONG).show()
                                 progressbar.visibility = View.GONE
                             } else {
                                 auth.createUserWithEmailAndPassword(correoElectronico,contrasena)
@@ -74,7 +77,7 @@ class RegistroManualActivity : AppCompatActivity() {
 
                                       progressbar.visibility = View.GONE
 
-                                      Toast.makeText(applicationContext, "Usuario registrado", Toast.LENGTH_LONG).show()
+                                      Toast.makeText(applicationContext, "Usuario registrado con éxito", Toast.LENGTH_LONG).show()
                                   }else{
                                       Toast.makeText(this, "Ocurrio un problema al intentar registrar el nuevo usuario", Toast.LENGTH_SHORT).show()
                                   }
@@ -83,8 +86,19 @@ class RegistroManualActivity : AppCompatActivity() {
                         }
                     }
                 }else{
-                    Toast.makeText(this, "La contraseña debe de tener mínimo 8 caracteres", Toast.LENGTH_SHORT).show()
-                    progressbar.visibility = View.GONE
+
+                    if(contrasena.length < 8){
+                        Toast.makeText(this, "La contraseña debe de tener mínimo 8 caracteres", Toast.LENGTH_SHORT).show()
+                        progressbar.visibility = View.INVISIBLE
+                        return@setOnClickListener
+                    }
+
+                    if(contrasena != confirContrasena){
+                        Toast.makeText(this, "Las contraseñas nos coinciden", Toast.LENGTH_SHORT).show()
+                        progressbar.visibility = View.INVISIBLE
+                        return@setOnClickListener
+                    }
+
                 }
 
             }else{
@@ -108,7 +122,7 @@ class RegistroManualActivity : AppCompatActivity() {
                 }
                 /*Toast.makeText(this, "Se deben de completar todos los datos solicitados", Toast.LENGTH_SHORT).show()*/
             }
-
+            progressbar.visibility = View.INVISIBLE
         }
         progressbar.visibility = View.GONE
     }

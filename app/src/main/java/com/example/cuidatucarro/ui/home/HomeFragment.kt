@@ -2,17 +2,20 @@ package com.example.cuidatucarro.ui.home
 
 
 import android.app.AlertDialog
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -20,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cuidatucarro.R
 import com.example.cuidatucarro.objetos.Autos
 import com.example.cuidatucarro.objetos.mantenientosAutos
+import com.example.cuidatucarro.recyclers.MainAdapter
 import com.example.cuidatucarro.recyclers.MainMantenimientos_vehi
 import com.example.cuidatucarro.viewmodel.AutoViewModel
 import com.google.firebase.auth.FirebaseAuth
@@ -55,7 +59,6 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val fragment = inflater.inflate(R.layout.fragment_home, container, false)
         return fragment
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
@@ -63,23 +66,12 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 activity?.finish()
             }
         })
-
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         calendar.markedDates.removeAdd()
         listMantenimientos.clear()
-
-        /*val now = Calendar.getInstance()
-        val currentYear: Int = now.get(Calendar.YEAR)
-        val currentMonth: Int = now.get(Calendar.MONTH)
-        val currentDay: Int = now.get(Calendar.DAY_OF_MONTH)
-
-        now.set(currentYear, currentMonth, currentDay)*/
-
-       // fecha_now.set(currentYear,currentMonth,currentDay)
 
         traervehiculos()
 
@@ -91,7 +83,16 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         )
 
         btnaddmantenimiento.setOnClickListener {
-            popTransmision()
+
+            if(listVehículos.size > 0)
+            {
+                popTransmision()
+            }else
+            {
+                Toast.makeText(activity,"No se encuentra ningun vehiculo registrado", Toast.LENGTH_LONG).show()
+            }
+
+
             /*if (fechaSelect != ""){
                 popTransmision()
             } else{
@@ -105,7 +106,7 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         }
 
-        calendar.setOnDateClickListener(object : OnDateClickListener() {
+        /*calendar.setOnDateClickListener(object : OnDateClickListener() {
             override fun onDateClick(view: View, date: DateData) {
 
                 var diaselect = calendar
@@ -246,9 +247,9 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
 
             }
-        })
-    }
+        })*/
 
+    }
     fun traervehiculos(){
 
         viewModel.traerDatosVehiculos(datosUsuario!!.uid).observe(
@@ -283,19 +284,8 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 )
                 spinner?.adapter = arrayAdapter
                 spinner?.onItemSelectedListener = this
-
-
-                ////////////////////////////////////////////////////////////////////////////////////
-
-
-                ////////////////////////////////////////////////////////////////////////////////////
-
-
-
             })
-
     }
-
     fun traerFechasMant(idAuto: String, desVeh: String, patente: String) {
 
         viewModel.traerFechasServicios(idAuto, desVeh, patente).observe(
@@ -341,13 +331,10 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
 
     }
-
-
     fun observeData(){
         adapter.setListData(listarecyclemant)
         adapter.notifyDataSetChanged()
     }
-
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         var paten:String = parent?.getItemAtPosition(position) as String
         //Toast.makeText(context, "$item", Toast.LENGTH_SHORT).show()
@@ -377,12 +364,9 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         }
     }
-
     override fun onNothingSelected(parent: AdapterView<*>?) {
         //Toast.makeText(context, "Mensaje", Toast.LENGTH_SHORT).show()
     }
-
-    //Pop transmisión
     fun popTransmision(){
         val dialogBuilder = AlertDialog.Builder(activity)
         var patentes = arrayOfNulls<String>(listVehículos.size)
@@ -406,7 +390,6 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 val bundle = Bundle()
                 bundle.putParcelable("auto", vehiculo)
                 findNavController().navigate(R.id.Mantenimientos,bundle)
-
             }
 
         }
@@ -415,11 +398,6 @@ class HomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         alert.setTitle("Elegir a que patente se le agrega el Mantenimiento:")
         alert.show()
     }
-
-
-
-
-
     }
 
 

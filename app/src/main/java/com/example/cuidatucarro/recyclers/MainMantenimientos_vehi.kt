@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView.OnItemClickListener
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cuidatucarro.R
 import com.example.cuidatucarro.objetos.Autos
@@ -11,7 +12,7 @@ import com.example.cuidatucarro.objetos.mantenientosAutos
 import kotlinx.android.synthetic.main.item_row_mantenimientos.view.*
 
 
-class MainMantenimientos_vehi(private val context: Context): RecyclerView.Adapter<MainMantenimientos_vehi.MainViewHolder>() {
+class MainMantenimientos_vehi(private val context: Context?): RecyclerView.Adapter<MainMantenimientos_vehi.MainViewHolder>() {
 
     private var dataList = mutableListOf<mantenientosAutos>()
 

@@ -22,8 +22,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Nombre"
-        android:layout_margin="10dp"
-        android:inputType="textPersonName"/>
+        android:layout_margin="15dp"
+        android:inputType="textCapCharacters"/>
 
     <EditText
         android:id="@+id/txtApellido"
@@ -31,17 +31,17 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Apellido"
-        android:layout_margin="10dp"
-        android:inputType="textPersonName" />
+        android:layout_margin="15dp"
+        android:inputType="textCapCharacters"/>
 
     <EditText
         android:id="@+id/txtEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:layout_margin="10dp"
+        android:layout_margin="15dp"
         android:hint="Email"
-        android:inputType="textEmailAddress" />
+        android:inputType="textWebEmailAddress" />
 
     <EditText
         android:id="@+id/txtPassword"
@@ -49,7 +49,16 @@
         android:layout_height="wrap_content"
         android:hint="Contraseña"
         android:ems="10"
-        android:layout_margin="10dp"
+        android:layout_margin="15dp"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/txtPasswordConfir"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Repetir Contraseña"
+        android:ems="10"
+        android:layout_margin="15dp"
         android:inputType="textPassword" />
 
     <Button
@@ -60,6 +69,5 @@
         android:background="@drawable/stylebottons"
         android:layout_margin="10dp"
         android:text="Crear Cuenta" />
-
 
 </LinearLayout>

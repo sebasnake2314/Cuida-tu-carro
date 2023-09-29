@@ -28,8 +28,6 @@ import kotlinx.android.synthetic.main.tarjeta_veh.view.*
 
 class AutosFragment : Fragment(),MainAdapter.OnAutoClickListener {
 
-    private lateinit var dashboardViewModel: DashboardViewModel
-    private lateinit var bottomAppBar: BottomAppBar
     private lateinit var floatingActionButton: FloatingActionButton
     private var listVehículos = mutableListOf<Autos>()
     var esconderBar:Boolean = false
@@ -187,7 +185,8 @@ class AutosFragment : Fragment(),MainAdapter.OnAutoClickListener {
         btnModificar.setOnClickListener{
 
         alertDialog.dismiss()
-        var bundle = Bundle()
+
+        val bundle = Bundle()
             bundle.putParcelable("auto", auto)
         findNavController().navigate(R.id.fragemtagregarauto, bundle)
 

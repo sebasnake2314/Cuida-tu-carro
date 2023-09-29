@@ -10,7 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="387dp"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:layout_margin="20dp">
 
         <sun.bob.mcalendarview.MCalendarView
             android:id="@+id/calendar"
@@ -28,7 +29,7 @@
         android:layout_marginTop="5dp"
         android:backgroundTint="@color/colorPrimary"
         android:src="@drawable/ic_add"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:fabSize="normal" />
 
     <LinearLayout
@@ -36,7 +37,8 @@
         android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="10dp">
 
         <TextView
             android:id="@+id/txtCantVeh"

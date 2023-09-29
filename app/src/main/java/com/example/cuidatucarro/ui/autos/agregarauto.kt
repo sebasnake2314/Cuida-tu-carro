@@ -167,7 +167,7 @@ class agregarauto : Fragment() {
 
                 if(TextUtils.isEmpty(txtTransmision.text.toString())){
                    /* Toast.makeText(activity, "La txtTransmision es un campo Obligatiorio para completar", Toast.LENGTH_SHORT).show()*/
-                    txtTransmision.setError("La txtTransmision es un campo Obligatiorio para completar")
+                    txtTransmision.setError("La Transmision es un campo Obligatiorio para completar")
                 }
 
 
@@ -359,6 +359,7 @@ class agregarauto : Fragment() {
         val marca = txtMarca.text.toString()
         val model = txtModelo.text.toString()
         val km = txtKm.text.toString()
+
         val transmision = txtTransmision.text.toString()
 
             viewModel.agregarNuevoVehocilo(
@@ -370,7 +371,8 @@ class agregarauto : Fragment() {
                 transmision,
                 urlImage,
                 uriPhoto)
-            showAlertDialogSuccess()
+
+        showAlertDialogSuccess()
 
             btnAddVeh.isClickable = true
             findNavController().navigate(R.id.navigation_auto)
